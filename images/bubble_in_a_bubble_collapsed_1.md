@@ -1,6 +1,6 @@
 ```mermaid
 graph LR
    s((start))-->ACAG-->AGTAC-->ACGG-->GGC-->GCAT-->e((end))
-   ACAG-->AGC-->GCG-->CGC-->GCAT
+   ACAG-->AGCGC-->GCAT
    AGTAC-->ACTGG-->GGC 
 ```
