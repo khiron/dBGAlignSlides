@@ -491,6 +491,45 @@ The compression ratio is the mean payload $4.2857$ over the original kmer length
 | IBD phage |  
 | Tara oceans phage |
 
+# Result: Sample unit tests
+
+### cyclic sequences
+
+```python
+def test_pog_cycle(output_dir: Path):
+    dbg = dbg_align.DeBrujinGraph(3,cogent3.DNA)
+    dbg.add_sequence({
+        "seq1": "ACAGTACGGCAT", 
+        "seq2": "ACAGTACTGGCAT", 
+        "seq3":"ACAGCGCGCAT" # contains cycle
+        })
+    with open(output_dir / "cycle.md", "w") as f:
+        f.write("```mermaid\n")
+        f.write(dbg.to_mermaid())
+        f.write("```")   
+    assert dbg.has_cycles()
+    assert len(dbg) == 3
+    assert dbg.names() == ["seq1", "seq2", "seq3"]
+    assert dbg["seq1"] == "ACAGTACGGCAT"
+    assert dbg["seq2"] == "ACAGTACTGGCAT"
+    assert dbg["seq3"] == "ACAGCGCGCAT" # contains cycle
+     
+    dbg.to_pog()
+    # write mermaid out to testout folder
+    with open(output_dir / "cycle_compressed.md", "w") as f:
+        f.write("```mermaid\n")
+        f.write(dbg.to_mermaid())
+        f.write("```")
+```
+</hr>
+<div class="two_columns">
+  <div>
+    <img src="images/cycle.drawio.svg" alt="" style="width: 100%;" />
+  </div>
+  <div>
+    <img src="images/cycle_compressed.drawio.svg" alt="" style="width: 100%;" />
+  </div>
+</div>
 
 # Discussion
 
