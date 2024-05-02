@@ -2,34 +2,12 @@
 marp: true
 author: Richard Morris
 title: Dividing and conquering sequence alignment using De Bruijn Graphs
-theme: gaia
+theme: custom-style
 math: katex
 size: 16:9
 headingDivider: 1
 style: |
-  section {
-    background-color: #f8f8f8;
-    font-size: 1em;
-  }
-  .two_columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .three_columns {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  section::after {
-    content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
-  }
-  section.coverpage {
-    background-image: url('images/ANU_logo.png');
-    background-repeat: no-repeat;
-    background-size: 20%;
-    background-position: right 10px bottom 10px;
-  }
+  @import './custom-style.css'
 ---
 ## BIOL8706: Dividing and conquering sequence alignment using De Bruijn Graphs
 <!-- paginate: skip -->
@@ -38,11 +16,95 @@ style: |
 ![](images/debruijngraph.drawio.svg)
 - Student: Richard Morris
 - Huttley lab, Australian National University
-- Supervisors: Gavin Huttley, Vijini Mallawaarachchi
+- Supervisors: Gavin Huttley, Vijini Mallawaarachchi 
 
-# What is sequence alignment
+# Sequence alignment
 <!-- paginate: true -->
 <!-- header: _Dividing and conquering sequence alignment using De Bruijn Graphs_ -->
+
+![](images/3alignment.drawio.svg)
+
+**What?**: _arranges sequences of DNA, RNA or Protein to identify regions of similarity_
+**Why?**: _Uncover evolutionary relationships between sequences_
+**How?**: _comparing each letter in each sequence with every other letter_
+
+<!-- 
+Imagine being able to unravel the path of evolution of any protein 
+to design better crops for yield
+This is a case for sequence alignment
+-->
+
+# Consider Rubisco
+
+![bg right fit](images/rubisco.png)
+
+- one of the most abundant proteins on Earth 
+
+<!-- _footer: "[Parry et al 2012 doi.org/10.1093/jxb/ers336](https://doi.org/10.1093/jxb/ers336) "-->
+
+# Consider Rubisco
+<!-- _paginate: hold -->
+![bg right fit](images/photosynthesis.png)
+
+- one of the most abundant proteins on Earth 
+- **essential component of photosynthesis**
+<!-- _footer: "[Parry et al 2012 doi.org/10.1093/jxb/ers336](https://doi.org/10.1093/jxb/ers336) "-->
+
+# Consider Rubisco
+<!-- _paginate: hold -->
+![bg right fit](images/carbonfixation.png)
+
+- one of the most abundant proteins on Earth 
+- essential component of photosynthesis
+- **primary role is to convert CO₂ to organic carbon**
+
+<!-- _footer: "[Parry et al 2012 doi.org/10.1093/jxb/ers336](https://doi.org/10.1093/jxb/ers336) "-->
+
+# Evolution of Rubisco
+
+![bg right fit](images/rubiscoevolution.png)
+
+- Genomic sequencing has identified Rubisco-like proteins in 3 kingdoms of life
+- Phylogenetic analysis supports the existence of 3 clades of Rubisco
+
+<!-- _footer: "[Whitney et al 2012 doi.org/10.1104/pp.110.164814](https://doi.org/10.1104/pp.110.164814) "-->
+
+# How we build a phylogeny from extant sequences
+
+![](images/3alignment.drawio.svg)
+
+<br/>
+
+- Sequence alignment is the first step in building a phylogeny
+- Exhaustive alignment compares every character in each sequence with every character in every other sequence
+
+# Exhaustive alignment takes time
+
+A computational scientist would say that the asymptotic complexity of an exhaustive alignment is given by the big-O notation
+
+$O(L^n)$ 
+
+where $L$ is the average length of the sequence and $n$ is the number of sequences
+
+<div><div class="quote">
+<p>“ Big-O = How code slows as data grows ”</p>
+<cite>Ned Batchelder</cite>
+</div></div>
+
+The 2 genes that produce the subunits of Rubisco are ~1500 and ~500 bp, but the genomes of species that can make Rubisco can be 1.5 - 500 mbp long
+
+<!-- _footer: "[nedbatchelder.com](https://nedbatchelder.com/blog/201310/big_o_log_n.html)"-->
+
+# Computational complexity
+
+
+# Progressive alignment
+
+There is a way to improve 
+
+
+
+# What is sequence alignment
 
 <div class="two_columns">
   <div>
