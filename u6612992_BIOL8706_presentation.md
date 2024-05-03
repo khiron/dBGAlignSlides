@@ -28,11 +28,14 @@ style: |
 **Why?**: _Uncover evolutionary relationships between sequences_
 **How?**: _comparing each letter in each sequence with every other letter_
 
-<!-- 
-Imagine being able to unravel the path of evolution of any protein 
-to design better crops for yield
-This is a case for sequence alignment
--->
+# 3 big questions
+
+Imagine being able to unravel the path of evolution of any protein
+- To design crops for better yield
+- To predict the future behaviour of a virus
+- Or to understand our own evolution.
+
+These are 3 big questions that require sequence alignment
 
 # Consider Rubisco
 
@@ -64,16 +67,16 @@ This is a case for sequence alignment
 
 ![bg right fit](images/rubiscoevolution.png)
 
-- Genomic sequencing has identified 3 different clades of Rubisco, in 3 kingdoms of life
-- Phylogenetic analysis suggests when **innovations** in Rubisco appeared 
+- Genomic sequencing identified different clades of Rubisco in 3 kingdoms of life
+- Phylogenetic analysis suggests when **innovations** in Rubisco's lineage appeared 
 - We can compare that to the Earths atmosphere at that time
 
 <!-- _footer: "[Whitney et al 2012 doi.org/10.1104/pp.110.164814](https://doi.org/10.1104/pp.110.164814) "-->
 
 <!-- This will tell us important things like Rubisco innovations for different partial pressures of O₂ and CO₂-->
-# The value of understanding Rubisco innovations?
+# What is the value of understanding Rubisco innovations?
 
-- Rubisco is very slow 
+- Rubisco is very slow so plants make a lot of it
 - Q: Can we design more efficient Rubisco?
 - $\uparrow$ Rubisco efficiency would lead to
   - Food crop yield $\uparrow$
@@ -92,7 +95,7 @@ Can we engineer organisms that spend less time making Rubisco, and more into ext
 <div class="two_columns">
   <div>
 
-#### Alignment of eg: a viral genome allows us to:
+#### Alignment of eg: a viral sequences allows us to:
   * Identify conserved regions for vaccine/drug development
   * Identify changes in function to make predictions about the virus' behaviour
   * Identify and prepare for emerging variants
@@ -110,7 +113,7 @@ Can we engineer organisms that spend less time making Rubisco, and more into ext
 - How do we differ from our closest relatives?
 - What was happening when our species diverged one from another?
 - What can we learn about our own evolution from our closest relatives?
-- How can that knowledge inform biomedical science
+- Can that knowledge inform biomedical science
 
   </div>
   <div>
@@ -142,12 +145,12 @@ Where:
 
 <div><div class="quote">
 <p>“ Big-O tells you how code slows as data grows ”</p>
-<cite>Ned Batchelder</cite>
+<cite>Ned Batchelder (Python guru)</cite>
 </div></div>
 
 <!-- _footer: "[nedbatchelder.com](https://nedbatchelder.com/blog/201310/big_o_log_n.html)"-->
 
-# 
+# That's way too much math 
 
 Let's rephrase this big-O notation into a more biologically relevant concept of **“Work”**
 
@@ -157,10 +160,10 @@ So we can say that **“Work”** slows as data grows
 
 | Sequence length | **number of sequences** | “Work” required (comparisons)|
 |---|---|---|
-| 1,000 | 2 | 1,000,000 |
-| 1,000 | 3 | 1,000,000,000 |
-| 1,000 | 4 | 1,000,000,000,000 |
-| 1,000 | 5 | 1,000,000,000,000,000 |
+| 1,000 | 2 | 1 Million |
+| 1,000 | 3 | 1 Billion |
+| 1,000 | 4 | 1 Trillion |
+| 1,000 | 5 | 1 Quadrillion |
 
 # 
 <!-- _paginate: hold -->
@@ -173,17 +176,17 @@ So we can say that **“Work”** slows as data grows
 
 | **Sequence length** | number of sequences | “Work” required (comparisons)|
 |---|---|---|
-| 1,000 | 3 | 1,000,000,000 |
-| 2,000 | 3 | 8,000,000,000 |
-| 3,000 | 3 | 27,000,000,000 |
-| 4,000 | 3 | 64,000,000,000 |
+| 1,000 | 3 | 1 Billion |
+| 2,000 | 3 | 8 Billion |
+| 3,000 | 3 | 27 Billion |
+| 4,000 | 3 | 64 Billion |
 
 # The scale of our big questions
 
 | Genomes | Length (bp) | Number | “Work” required |
 |---|---|---|---|
 | Rubisco producers | 1.5-500 mbp|>350,000$_1$| $\text{millions}^\text{hundreds\ of\ thosands}$|
-| SARS-CoV-2 | ~29,903 | >5 million$_2$ | $29,903^\text{5 million}$|
+| SARS-CoV-2 | ~29 kbp | >5 million$_2$ | $\text{29 thousand}^\text{5 million}$|
 | Great apes | ~30mbp | 5 | $\text{30 million}^5$ |
 
 </br>
@@ -213,7 +216,7 @@ This reduces the work required from $O(L^n)$ $\rightarrow$ $O(n^2.L^2)$
 
 # Do you see the problem?
 
-- To align multiple sequences first reconstruct a phylogenetic tree to select the 2 most closely related
+- To align multiple sequences first reconstruct a phylogeny so that you can find the 2 most closely related
 - To reconstruct a phylogeny first align all sequences 
 
 # 
@@ -234,7 +237,7 @@ Recall: Sequence alignment is sensitive to
 An ideal strategy would reduce 
 - The **length** of sequences to be aligned
 - The **number** of sequences to be aligned
-- Reliance on knowing the phylogenetic relationships of the sequences in advance
+- Reliance on knowing the phylogeny in advance
 
 # What if we could **quickly** remove similar regions?
 
@@ -244,15 +247,17 @@ An ideal strategy would reduce
 
 # Sequence alignment using De Bruijn Graphs
 
-This work builds on the work by Xingjian Leng in a 12 month undergraduate research project in 2022, under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
+This work builds on the work by Xingjian Leng in 2022, under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
 
-Xingjian Leng tackled the length problem using de Bruijn graphs 
+Xingjian tackled the length problem using de Bruijn graphs 
 
 # De Bruijn graphs
 
-A De Bruijn graph is a directed graph that represents unique overlapping subsequences (or k-mers) at the nodes.  This structure is an efficient way to identify sequence overlaps, and common regions.  
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences (or k-mers) at the nodes.
 
 Building a De Bruijn graph has an order complexity of $O(nL)$ in other words “Work” scales linearly not exponentially.
+
+The sequence CACAGTACAGCAT as a de Bruijn graph looks like this;
 
 ![](images/debruijngraph.drawio.svg)
 
@@ -288,7 +293,7 @@ If we combine both sequences into a single de Bruijn graph, it will develop “b
 # Reducing the length of sequence to be aligned
 <!-- _paginate: hold -->
 
-We can collect nodes with 2 edge, or 1 edge into single nodes, and we can see the regions that are similar and the regions that are different (in the gold box).
+We can collect nodes with 2 edge, or 1 edge into single nodes, and we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
 
 ![](images/dbg_resolve_alignment.drawio.svg)
 
@@ -318,12 +323,12 @@ And we can extend this to multiple sequences.  Consider aligning the following s
   </div>
 </div>
 
-# Reducing the number of sequences to be aligned
+# Taking the de Bruijn graph to the next level
 
 - recall an exact alignment has an order complexity of $O(L^n)$
 - if we reduce the length of the sequences we need to align we reduce L
 
-# Reducing the number of sequences to be aligned
+# Taking the de Bruijn graph to the next level
 <!-- _paginate: hold -->
 
 - recall an exact alignment has an order complexity of $O(L^n)$
@@ -345,7 +350,7 @@ Consider this de Bruijn graph containing 4 sequences
 ![](images/dbg_common.drawio.svg)
 
 
-We don't have to align 4 sub-sequences at each alignment if sub-sequences that are the same braid together.
+We don't have to align 4 sub-sequences at each alignment if sub-sequences that are the same have braided together.
 
 # Reducing the reliance on the phylogeny
 
@@ -374,7 +379,8 @@ When Transformed into a partial order graph
 Contains the following nodes (left to right) with overlap removed AC+T+G+C+AT 
 
 Fastwork = $\sum\text{node length - overlap}$ = $7$
-Fastwork is an estimate of alignment required present in the de Bruijn graph that has a “ Work ” function of $O(node\_count)$
+Fastwork is an estimate of alignment required in the de Bruijn graph 
+Fastwork has a “ Work ” function of $O(node\_count)$
 
 
 # Results: Work statistic
@@ -386,8 +392,8 @@ Consider the same de Bruijn graph
 - Work calculates the order complexity of alignment using 4 strategies
   - Exact = $13\times12\times9 = 1404$
   - Progressive = $13\times12+13\times9 = 285$
-  - DBG_L = $7\times8+8\times1 = 64$
-  - DBG_LN =  $0\times1+5\times1 =5$
+  - DBG_L = $7\times8+8\times1 = 64$ (simplification of sequence length)
+  - DBG_LN =  $0\times1+5\times1 =5$ (simplification of sequence length and count)
 
   <!-- Why is DBG_LN() different from fastwork() -->
 
