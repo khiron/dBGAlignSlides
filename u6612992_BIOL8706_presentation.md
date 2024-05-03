@@ -182,68 +182,325 @@ So we can say that **“Work”** slows as data grows
 
 | Genomes | Length (bp) | Number | “Work” required |
 |---|---|---|---|
-| Species that make Rubisco | 1.5-500 mbp|>350,000| $\text{millions}^\text{hundreds\ of\ thosands}$|
-| SARS-CoV-2 | ~29,903 | >5 million | $29,903^\text{5 million}$|
-| Great ape evolution | ~30mbp | 5 | $\text{30 million}^5$ |
+| Rubisco producers | 1.5-500 mbp|>350,000$_1$| $\text{millions}^\text{hundreds\ of\ thosands}$|
+| SARS-CoV-2 | ~29,903 | >5 million$_2$ | $29,903^\text{5 million}$|
+| Great apes | ~30mbp | 5 | $\text{30 million}^5$ |
 
+</br>
+
+$^1$ ~ 300k species of plants + 10's of thousands of species of algae + thousands of species of cyanobacteria
+$^2$ 5.1 million as of Oct 2021 - [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y)
 <!-- 
-300k species of plants
-10's of thousands of species of algae
-thousands of species of cyanobacteria 
-
-The 2 genes that produce the subunits of Rubisco are ~1500 and ~500 bp, but the genomes of species that can make Rubisco can be 1.5 - 500 mbp long and we need to align the entire sequence to find where rubisco is being passed down the lineage
-
+Note: The genes that produce the 2 subunits of Rubisco are ~1500 and ~500 bp respectively
+but the genomes of species that can make Rubisco can be 1.5 - 500 mbp long 
+we need to align the entire sequence to find where Rubisco is being passed down the lineage
 -->
 
 # 
-![](images/memes/more-hamsetsr.png)
+![bg fit grayscale](images/memes/more-hamsetsr.png)
 
 <!-- _footer: "Created with the Imgflip Meme Generator"-->
-# Computational complexity
-
-
 # Progressive alignment
 
-There is a way to improve 
+We can reduce the work required as follows
+- align the 2 most closely related sequences $O(L^2)$ into a statistical model called a profile
+- align that profile with the next most closely related sequence ${n\choose{2}}$ times
+<br/>
 
+This reduces the work required from $O(L^n)$ $\rightarrow$ $O(n^2.L^2)$ 
 
+![bg right fit](images/progressive_alignment.drawio.svg)
 
+# Do you see the problem?
 
+- To align multiple sequences first reconstruct a phylogenetic tree to select the 2 most closely related
+- To reconstruct a phylogeny first align all sequences 
 
-# Why is MSA so computationally expensive?
+# 
 
-- An exhaustive solution has an order complexity of $O(L^n)$ 
-  - **L** is the length of the sequence 
-  - **n** is the number of sequences
+![bg fit 80%](images/memes/chicken-egg.png)
+
+<!-- _footer: "Created with the Imgflip Meme Generator"-->
+
+# The problem space
+
+Recall: Sequence alignment is sensitive to 
+- The **length** of sequences to be aligned
+- The **number** of sequences to be aligned
+- the “ Chicken and Egg ” problem
+
 </hr>
 
-# MSA for SARS-CoV-2 genomes?
+An ideal strategy would reduce 
+- The **length** of sequences to be aligned
+- The **number** of sequences to be aligned
+- Reliance on knowing the phylogenetic relationships of the sequences in advance
+
+# What if we could **quickly** remove similar regions?
+
+![](images/similar_regions.drawio.svg)
+
+### We'd could focus our computational resources on just the regions that differ
+
+# Sequence alignment using De Bruijn Graphs
+
+This work builds on the work by Xingjian Leng in a 12 month undergraduate research project in 2022, under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
+
+Xingjian Leng tackled the length problem using de Bruijn graphs 
+
+# De Bruijn graphs
+
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences (or k-mers) at the nodes.  This structure is an efficient way to identify sequence overlaps, and common regions.  
+
+Building a De Bruijn graph has an order complexity of $O(nL)$ in other words “Work” scales linearly not exponentially.
+
+![](images/debruijngraph.drawio.svg)
+
+# Reducing the length of sequence to be aligned
+
+Consider the DNA sequence $\boxed{CACAGTACGGCAT}$ 
+
+When we represent that as a de Bruijn graph it looks like this:
+
+![](images/dbg_sequencea.drawio.svg)
+
+# Reducing the length of sequence to be aligned
+<!-- _paginate: hold -->
+Consider we want to align that sequence $\boxed{CACAGTAC\boxed{G}GCAT}$ to the very similar sequence $\boxed{CACAGTAC\boxed{T}CGCAT}$
+
+Which as a De Bruijn graph looks like this:
+
+![](images/dbg_sequenceb.drawio.svg)
+
+
+# Reducing the length of sequence to be aligned
+<!-- _paginate: hold -->
+
+Sequence A: ![](images/dbg_sequencea.drawio.svg)
+
+Sequence B: ![](images/dbg_sequenceb.drawio.svg)
+
+If we combine both sequences into a single de Bruijn graph, it will develop “bubbles” where regions are different.
+
+![](images/dbg_alignment.drawio.svg)
+
+
+# Reducing the length of sequence to be aligned
+<!-- _paginate: hold -->
+
+We can collect nodes with 2 edge, or 1 edge into single nodes, and we can see the regions that are similar and the regions that are different (in the gold box).
+
+![](images/dbg_resolve_alignment.drawio.svg)
+
+
+Now we can use a traditional algorithm to align the regions $\boxed{AC\boxed{G}GC}$ and $\boxed{AC\boxed{T}GC}$, and we've reduced our “Work” function from $O(14^2)$ down to $O(5^2)$ = **7.8x** less work.
+
+<!-- 
+An attentive observer may notice that because a de Bruijn graph with order 3 has an overlap of 2
+the first and last 2 letters don't need to be aligned either so the work function in this case can be reduced to $O(1^2)$
+-->
+
+# De Bruijn multiple sequence alignment
+
+And we can extend this to multiple sequences.  Consider aligning the following sequences
+`CACAGTACGGCAT` `CACAGTACTGCAT` `CACAGTACTGGAGCAT`& `CACAGTACTGATGCAT`
+
+</br>
+
 <div class="two_columns">
   <div>
 
-## SARS-CoV-2 
-- length: **~29,903** bp
-- number: **over 5 million** (as of March 2022) <sup>1</sup>
-- $O(29,903^\text{over 5 million})$ is a **very large number**
-##### **Required: a method to align large numbers of small sequences**
+  ![](images/dbg_msa.drawio.svg)
 
   </div>
   <div>
-    <figure>
-      <img src="images/SARS-CoV-2.png" alt="SARS-CoV-2" style="width: 50%;"/>
-      <figcaption>Fig 1: Artists rendition of SARS-CoV-2</figcaption>
-    </figure>
+    Now we've reduced O(13x13x16x16) down to O(6x6x8x8) = <strong>18.8x</strong> less work
   </div>
 </div>
 
-<!-- _footer: "<sup>1</sup> [doi.org/10.1038/s41588-022-01033-y](doi.org/10.1038/s41588-022-01033-y) | Fig 1 [doi.org/10.7875/togopic.2020.199](doi.org/10.7875/togopic.2020.199)"-->
+# Reducing the number of sequences to be aligned
+
+- recall an exact alignment has an order complexity of $O(L^n)$
+- if we reduce the length of the sequences we need to align we reduce L
+
+# Reducing the number of sequences to be aligned
+<!-- _paginate: hold -->
+
+- recall an exact alignment has an order complexity of $O(L^n)$
+- if we reduce the length of the sequences we need to align we reduce L
+#### **How about n?**
+
+# Reducing the number of sequences to be aligned
+
+Consider this de Bruijn graph containing 4 sequences
+
+![](images/dbg_common.drawio.svg)
 
 
+# Reducing the number of sequences to be aligned
+<!-- _paginate: hold -->
 
-# Required: a more efficient method to align 
-  - large numbers of small sequences
-  - small numbers of very similar long sequences
+Consider this de Bruijn graph containing 4 sequences
 
+![](images/dbg_common.drawio.svg)
+
+
+We don't have to align 4 sub-sequences at each alignment if sub-sequences that are the same braid together.
+
+# Reducing the reliance on the phylogeny
+
+![](images/dbg_phylogeny.drawio.svg)
+
+“Bubbles” that have shorter edges will be more closely related than “bubbles” with longer edges.
+
+By ordering progressive alignment by ascending “bubbles” size, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+
+# Project aims
+
+* Investigate De Bruijn graphs for multi-sequence alignment (MSA)
+* Build a python library 
+    * Resolve the De Bruijn graph to a partial order graph
+    * identify “bubbles”
+    * Develop unit tests to verify correctness of the algorithm
+* Develop statistics for de Bruijn graphs to predict efficiency
+
+# Results: Fastwork statistic
+
+Consider this de Bruijn graph containing 3 sequences [ACAGTACGGCAT, ACAGTACTGGCAT, ACAGCGCAT] of length 12, 13 and 9
+When Transformed into a partial order graph 
+
+![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
+
+Contains the following nodes (left to right) with overlap removed AC+T+G+C+AT 
+
+Fastwork = $\sum\text{node length - overlap}$ = $7$
+Fastwork is an estimate of alignment required present in the de Bruijn graph that has a “ Work ” function of $O(node\_count)$
+
+
+# Results: Work statistic
+
+Consider the same de Bruijn graph 
+
+![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
+
+- Work calculates the order complexity of alignment using 4 strategies
+  - Exact = $13\times12\times9 = 1404$
+  - Progressive = $13\times12+13\times9 = 285$
+  - DBG_L = $7\times8+8\times1 = 64$
+  - DBG_LN =  $0\times1+5\times1 =5$
+
+# Results: Calculated from alignable sequences
+- BRCA1 genes in 56 species (citation needed)
+- BRCA1 genes in primates (citation needed)
+- SARS-CoV-2 genomes (citation needed)
+- IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002)
+- Tara oceans phage components (https://doi.org/10.1126/science.1261605)
+
+# Results: Calculated order complexity from alignable sequences
+
+| kmer | Genomes | Exact | Progressive | dBG_L | dBG_LN |
+|---|---|---|---|---|---|
+| 3 | BRCA1 56 species |  |  |  |  |
+| 3 | BRCA1 primates |  |  |  |  |
+| 3 | SARS-CoV-2 |  |  |  |  |
+| 3 | IBD phage |  |  |  |  |
+| 3 | Tara oceans phage |  |  |  |  |
+
+# Results: Calculated order complexity from alignable sequences
+<!-- _paginate: hold -->
+
+| kmer | Genomes | Exact | Progressive | dBG_L | dBG_LN |
+|---|---|---|---|---|---|
+| 6 | BRCA1 56 species |  |  |  |  |
+| 6 | BRCA1 primates |  |  |  |  |
+| 6 | SARS-CoV-2 |  |  |  |  |
+| 6 | IBD phage |  |  |  |  |
+| 6 | Tara oceans phage |  |  |  |  |
+# Results: Calculated order complexity from alignable sequences
+<!-- _paginate: hold -->
+
+| kmer | Genomes | Exact | Progressive | dBG_L | dBG_LN |
+|---|---|---|---|---|---|
+| 9 | BRCA1 56 species |  |  |  |  |
+| 9 | BRCA1 primates |  |  |  |  |
+| 9 | SARS-CoV-2 |  |  |  |  |
+| 9 | IBD phage |  |  |  |  |
+| 9 | Tara oceans phage |  |  |  |  |
+
+# Results: Calculated fastwork from alignable sequences
+
+| Genomes | dBG(3) | dBG(4) | dBG(5) | dBG(6) | dBG(7) | dBG(8) | dBG(9) | 
+|---|---|---|---|---|---|---|---|
+| BRCA1 56 species |  
+| BRCA1 primates |  
+| SARS-CoV-2 |  
+| IBD phage |  
+| Tara oceans phage |
+
+# Result: Sample unit tests: cyclic sequences
+
+```python
+def test_pog_cycle(output_dir: Path):
+    dbg = dbg_align.DeBrujinGraph(3,cogent3.DNA)
+    dbg.add_sequence({
+        "seq1": "ACAGTACGGCAT", 
+        "seq2": "ACAGTACTGGCAT", 
+        "seq3":"ACAGCGCGCAT" # contains cycle
+        })
+    with open(output_dir / "cycle.md", "w") as f:
+        f.write("```mermaid\n")
+        f.write(dbg.to_mermaid())
+        f.write("```")   
+    assert dbg.has_cycles()
+    assert len(dbg) == 3
+    assert dbg.names() == ["seq1", "seq2", "seq3"]
+    assert dbg["seq1"] == "ACAGTACGGCAT"
+    assert dbg["seq2"] == "ACAGTACTGGCAT"
+    assert dbg["seq3"] == "ACAGCGCGCAT" # contains cycle
+     
+    dbg.to_pog()
+    # write mermaid out to testout folder
+    with open(output_dir / "cycle_compressed.md", "w") as f:
+        f.write("```mermaid\n")
+        f.write(dbg.to_mermaid())
+        f.write("```")
+```
+
+# Discussion
+
+
+# Future directions
+
+Investigate the potential of using de Bruijn Graphs to;
+
+- identify reverse compliment regions from a dBG
+- identify genetic distance and infer phylogeny from a dBG
+- 
+
+![](images/dbg_phylogeny.drawio.svg)
+
+
+# Thanks
+
+<div class="two_columns">
+  <div>
+
+- Gavin Huttley
+- Yu Lin
+- Vijini Mallawaarachchi
+- Xinjian Leng
+</div>
+<div>
+
+## ... and the Huttleylab
+
+<img src="images/teadance.gif" />
+</div>
+
+
+# Questions
+
+# Errata
 
 # Sequence alignment order complexity
 
@@ -318,314 +575,10 @@ backtrace from bottom right selecting the value that _**maximizes**_ the alignme
     - create a statical model of the transition between states 
     - Determine likely alignment based on the model
 
-# The problem at the core of genetic alignment
-
-<div class="two_columns">
-  <div>
-<br/>
-<br/>
-
-- ## Alignment needs trees
-To align sequences accurately and efficiently, one should know the phylogenetic relationships among the sequences to better guide the alignment process
-<br/>
-<br/>
-
-- ## Trees need alignment
-to infer a phylogenetic tree accurately, one needs a well-aligned set of sequences
-  </div>
-  <div>
-
-![](images/memes/chicken-egg.png)
-</div> 
-<!-- _footer: "Created with the Imgflip Meme Generator"-->
-
-# What if we could quickly remove regions that are similar?
-
-![](images/similar_regions.drawio.svg)
-
-### We'd be able to focus our computational resources on just the regions that are different.
-
-# Sequence alignment using De Bruijn Graphs
-
-This work builds on the work by Xingjian Leng in a 12 month undergraduate research project in 2022, under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
-
-That project focused on the alignment of closely related viral genomes, with a particular emphasis on SARS-CoV-2. The method is based on the construction and utilization of de Bruijn graphs for both pairwise and multiple sequence alignment tasks.
-
-# De Bruijn graphs
-
-A De Bruijn graph is a directed graph that represents unique overlapping subsequences (or k-mers) at the nodes.  This structure is an efficient way to identify sequence overlaps, and common regions.  
-
-Building a De Bruijn graph has an order complexity of $O(nL)$ 
-
-![](images/debruijngraph.drawio.svg)
-
-# Overlapping k-mers
-
-Consider the DNA sequence $\boxed{CACAGTACGGCAT}$ when broken into 3 character overlapping subsequences (or 3-mers) looks like this:
-
-$
-\boxed{CAC}\quad\quad\quad\quad\quad\quad \boxed{ACG} \\
-\quad \boxed{ACA}\quad\quad\quad\quad\quad\quad \boxed{CGG} \\
-\quad\quad \boxed{CAG}\quad\quad\quad\quad\quad\quad \boxed{GGC} \\
-\quad\quad\quad \boxed{AGT} \quad\quad\quad\quad\quad\quad \boxed{GCA}\\
-\quad\quad\quad\quad \boxed{GTA}\quad\quad\quad\quad\quad\quad \boxed{CAT}\\
-\quad\quad\quad\quad\quad \boxed{TAC}\\
-$
-# De Bruijn graphs
-
-When we represent that as a de Bruijn graph it looks like this:
-
-![](images/dbg_sequencea.drawio.svg)
-
-
-# A second sequence
-
-Consider we want to align that sequence $\boxed{CACAGTAC\boxed{G}GCAT}$ to the very similar sequence $\boxed{CACAGTAC\boxed{T}CGCAT}$
-
-Which as a De Bruijn graph looks like this:
-
-![](images/dbg_sequenceb.drawio.svg)
-
-
-# De Bruijn pairwise alignment
-
-#### Sequence A: ![](images/dbg_sequencea.drawio.svg)
-</hr>
-
-#### Sequence B: ![](images/dbg_sequenceb.drawio.svg)
-</hr>
-
-If we combine both sequences into a single de Bruijn graph, we can easily identify the regions that are similar and the regions that are different.
-
-![](images/dbg_alignment.drawio.svg)
-
-
-# Resolving the graph
-
-We can collect nodes with 2 edge, or 1 edge into single nodes, and we can see the regions that are similar and the regions that are different.
-
-![](images/dbg_resolve_alignment.drawio.svg)
-
-
-Now we can use a traditional algorithm to align the regions $\boxed{AC\boxed{G}GC}$ and $\boxed{AC\boxed{T}GC}$, and we've reduced $O(14^2)$ down to $O(5^2)$ = **7.8x** less work.
-
-# De Bruijn multiple sequence alignment
-
-And we can extend this to multiple sequences.  Consider aligning the following sequences
-`CACAGTACGGCAT` `CACAGTACTGCAT` `CACAGTACTGGAGCAT`& `CACAGTACTGATGCAT`
-
-</hr>
-
-<div class="two_columns">
-  <div>
-
-  ![](images/dbg_msa.drawio.svg)
-
-  </div>
-  <div>
-    Now we've reduced O(13x13x16x16) down to O(6x6x8x8) = <strong>18.8x</strong> less work
-  </div>
-</div>
-
-# Reducing the horizontal complexity of the problem
-
-- Horizontal component of the problem is the length (L) of the sequences to be aligned
-- recall an exact alignment has an order complexity of $O(L^n)$
-- if we reduce the length of the sequences we need to align we reduce L
-
-
-#### **How about n?**
-
-# Reducing the vertical complexity of the problem
-
-- Vertical component of the problem is the number of sequences to be aligned (n)
-
-![](images/dbg_common.drawio.svg)
-
-- Any matches or deletions reduces the number of sequences we need to align
-
-# Project aims
-
-* Investigate the use of De Bruijn graphs to identify regions of dissimilarity for traditional alignment algorithms
-* Build a python library for investigating De Bruijn Graph Multi-sequence alignment
-    * Resolve the De Bruijn graph to a partial order graph to reduce horizontal complexity
-    * Convert matched pairs of bubble edges to profiles to reduce vertical complexity
-    * Develop unit tests that verify the correctness of the library against edge case sequence alignments
+# Unit tests
+library against edge case sequence alignments
       * long sequences
       * numerous sequences
       * cyclic sequences
       * bubbles within bubbles
       * sequential bubbles
-* Develop statistics for any set of sequences, for a range of possible kmer lengths
-    * Time complexity 
-      * how many alignment operations are required for exact, progressive, 1 dimensional de Bruin graphs, and 2 dimensional de Bruin graphs
-    * Memory use ratio
-      * how much memory is required to store the partial order graph over the amount present in the sequences
-    * Compression ratio
-      * how much information about common subsequences is retained in the partial order graph
-
-# Results: projected memory use ratio
-
-Memory complexity is the amount of actual memory required to stor a sequence divided by the amount of memory required for the original sequences
-
-![](images/bubble_in_a_bubble.drawio.svg)
-
-Converted into a partial order graph 
-
-![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
-
-- Memory complexity = $30 / 34$
-
-
-# Results: projected order complexity
-
-![](images/bubble_in_a_bubble.drawio.svg)
-
-Converted into a partial order graph 
-
-![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
-
-
-- Exact alignment  = $13\times12\times9 = 1404$
-- Progressive alignment = $13\times12+12\times9+13\times9 = 381$
-- 1 dimensional de Brujin Graph simplification then progressive alignment = $9\times8+8\times5+9\times5 = 157$
-- 2 dimensional de Brujin Graph simplification then progressive alignment =  $4\times5+5\times9+4\times9 =101$
-
-# Results: Projected compression ratio
-
-**Compression ratio** is the average length of the payload of partial order graph (POG) nodes divided by the kmer length used to construct the de Brujin graph the POG was derived from.
-
-A higher compression ratio indicates that the kmer size chosen to construct the de Brujin graph from those sequences captured more information about common subsequences.
-
-Given the POG derived from a de Brujin graph with k=3.
-
-![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
-
-The compression ratio is the mean payload $4.2857$ over the original kmer length of $3$ $=1.4286$
-
-# Results: Calculated order complexity from alignable sequences
-<div class="two_columns">
-  <div>
-
-- BRCA1 genes in 56 species (citation needed)
-- BRCA1 genes in primates (citation needed)
-- SARS-CoV-2 genomes (citation needed)
-- IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002)
-- Tara oceans phage components (https://doi.org/10.1126/science.1261605)
-
-  </div>
-  <div>
-## kmer = 3
-
-| Genomes | Exact | Progressive | 1D dBG | 2D dBG |
-|---|---|---|---|---|
-| BRCA1 56 species |  |  |  |  |
-| BRCA1 primates |  |  |  |  |
-| SARS-CoV-2 |  |  |  |  |
-| IBD phage |  |  |  |  |
-| Tara oceans phage |  |  |  |  |
-
-## kmer = 6
-
-| Genomes | Exact | Progressive | 1D dBG | 2D dBG |
-|---|---|---|---|---|
-| BRCA1 56 species |  |  |  |  |
-| BRCA1 primates |  |  |  |  |
-| SARS-CoV-2 |  |  |  |  |
-| IBD phage |  |  |  |  |
-| Tara oceans phage |  |  |  |  |
-
-## kmer = 9
-
-| Genomes | Exact | Progressive | 1D dBG | 2D dBG |
-|---|---|---|---|---|
-| BRCA1 56 species |  |  |  |  |
-| BRCA1 primates |  |  |  |  |
-| SARS-CoV-2 |  |  |  |  |
-| IBD phage |  |  |  |  |
-| Tara oceans phage |  |  |  |  |
-  </div>
-</div>
-
-# Results: Calculated compression ratio from alignable sequences
-
-- BRCA1 genes in 56 species (citation needed)
-- BRCA1 genes in primates (citation needed)
-- SARS-CoV-2 genomes (citation needed)
-- IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002)
-- Tara oceans phage components (https://doi.org/10.1126/science.1261605)
-
-</br>
-</br>
-</br>
-
-| Genomes | dBG(3) | dBG(4) | dBG(5) | dBG(6) | dBG(7) | dBG(8) | dBG(9) | 
-|---|---|---|---|---|---|---|---|
-| BRCA1 56 species |  
-| BRCA1 primates |  
-| SARS-CoV-2 |  
-| IBD phage |  
-| Tara oceans phage |
-
-# Result: Sample unit tests
-
-### cyclic sequences
-
-```python
-def test_pog_cycle(output_dir: Path):
-    dbg = dbg_align.DeBrujinGraph(3,cogent3.DNA)
-    dbg.add_sequence({
-        "seq1": "ACAGTACGGCAT", 
-        "seq2": "ACAGTACTGGCAT", 
-        "seq3":"ACAGCGCGCAT" # contains cycle
-        })
-    with open(output_dir / "cycle.md", "w") as f:
-        f.write("```mermaid\n")
-        f.write(dbg.to_mermaid())
-        f.write("```")   
-    assert dbg.has_cycles()
-    assert len(dbg) == 3
-    assert dbg.names() == ["seq1", "seq2", "seq3"]
-    assert dbg["seq1"] == "ACAGTACGGCAT"
-    assert dbg["seq2"] == "ACAGTACTGGCAT"
-    assert dbg["seq3"] == "ACAGCGCGCAT" # contains cycle
-     
-    dbg.to_pog()
-    # write mermaid out to testout folder
-    with open(output_dir / "cycle_compressed.md", "w") as f:
-        f.write("```mermaid\n")
-        f.write(dbg.to_mermaid())
-        f.write("```")
-```
-</hr>
-<div class="two_columns">
-  <div>
-    <img src="images/cycle.drawio.svg" alt="" style="width: 100%;" />
-  </div>
-  <div>
-    <img src="images/cycle_compressed.drawio.svg" alt="" style="width: 100%;" />
-  </div>
-</div>
-
-# Discussion
-
-
-# Future directions
-
-Investigate the potential of using de Bruijn Graphs to;
-
-- identify reverse compliment regions from a dBG
-- identify genetic distance and infer phylogeny from a dBG
-
-![](images/dbg_phylogeny.drawio.svg)
-
-
-# Thanks
-
-- Gavin Huttley
-- Yu Lin
-- Vijini Mallawaarachchi
-- Xinjian Leng
-- Huttley lab
-
-# Questions
