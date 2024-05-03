@@ -64,47 +64,30 @@ This is a case for sequence alignment
 
 ![bg right fit](images/rubiscoevolution.png)
 
-- Genomic sequencing has identified Rubisco-like proteins in 3 kingdoms of life
-- Phylogenetic analysis supports the existence of 3 clades of Rubisco
+- Genomic sequencing has identified 3 different clades of Rubisco, in 3 kingdoms of life
+- Phylogenetic analysis suggests when **innovations** in Rubisco appeared 
+- We can compare that to the Earths atmosphere at that time
 
 <!-- _footer: "[Whitney et al 2012 doi.org/10.1104/pp.110.164814](https://doi.org/10.1104/pp.110.164814) "-->
 
-# How we build a phylogeny from extant sequences
+<!-- This will tell us important things like Rubisco innovations for different partial pressures of O₂ and CO₂-->
+# The value of understanding Rubisco innovations?
 
-![](images/3alignment.drawio.svg)
+- Rubisco is very slow 
+- Q: Can we design more efficient Rubisco?
+- $\uparrow$ Rubisco efficiency would lead to
+  - Food crop yield $\uparrow$
+  - Carbon sequestration $\uparrow$
+  - Biological hydrocarbon (eg: CH₄) production $\uparrow$
 
-<br/>
+<!-- 
+Rubisco processes ~3-10 CO₂ molecules per second
+Contrast with ATP Synthase which generates 100-200 molecules of ATP per second
+Can we engineer organisms that spend less time making Rubisco, and more into extracting CO₂ from the atmosphere and making **carbohydrates** or **hydrocarbons**
 
-- Sequence alignment is the first step in building a phylogeny
-- Exhaustive alignment compares every character in each sequence with every character in every other sequence
+-->
 
-# Exhaustive alignment takes time
-
-A computational scientist would say that the asymptotic complexity of an exhaustive alignment is given by the big-O notation
-
-$O(L^n)$ 
-
-where $L$ is the average length of the sequence and $n$ is the number of sequences
-
-<div><div class="quote">
-<p>“ Big-O = How code slows as data grows ”</p>
-<cite>Ned Batchelder</cite>
-</div></div>
-
-The 2 genes that produce the subunits of Rubisco are ~1500 and ~500 bp, but the genomes of species that can make Rubisco can be 1.5 - 500 mbp long
-
-<!-- _footer: "[nedbatchelder.com](https://nedbatchelder.com/blog/201310/big_o_log_n.html)"-->
-
-# Computational complexity
-
-
-# Progressive alignment
-
-There is a way to improve 
-
-
-
-# What is sequence alignment
+# Consider the spike protein of SARS-CoV-2
 
 <div class="two_columns">
   <div>
@@ -119,6 +102,113 @@ There is a way to improve
     <img src="images/sars_cov_2_alignment.png" alt="SARS-CoV-2 sequence alignment" style="width: 100%;"/>
     <span>Alignment of S mutation points of SARS-CoV-2 variants</span>
   </div>
+
+# Consider our immediate family
+<div class="two_columns">
+  <div>
+
+- How do we differ from our closest relatives?
+- What was happening when our species diverged one from another?
+- What can we learn about our own evolution from our closest relatives?
+- How can that knowledge inform biomedical science
+
+  </div>
+  <div>
+    <figure>
+      <img src="images/great_apes.drawio.svg" alt="Great apes" style="width: 100%;"/>
+      <figcaption>The family tree of great apes</figcaption>
+    </figure>
+  </div>
+</div>
+
+# How we build a phylogeny from extant sequences
+
+![](images/3alignment.drawio.svg)
+
+<br/>
+
+- Sequence alignment is the first step in building a phylogeny
+- Exhaustive alignment compares every character in each sequence with every character in every other sequence
+
+# Exhaustive alignment takes time
+
+A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by 
+
+## $O(L^n)$ 
+
+Where: 
+- $L$ is the average length of the sequence
+- $n$ is the number of sequences
+
+<div><div class="quote">
+<p>“ Big-O tells you how code slows as data grows ”</p>
+<cite>Ned Batchelder</cite>
+</div></div>
+
+<!-- _footer: "[nedbatchelder.com](https://nedbatchelder.com/blog/201310/big_o_log_n.html)"-->
+
+# 
+
+Let's rephrase this big-O notation into a more biologically relevant concept of **“Work”**
+
+<hr/>
+
+So we can say that **“Work”** slows as data grows
+
+| Sequence length | **number of sequences** | “Work” required (comparisons)|
+|---|---|---|
+| 1,000 | 2 | 1,000,000 |
+| 1,000 | 3 | 1,000,000,000 |
+| 1,000 | 4 | 1,000,000,000,000 |
+| 1,000 | 5 | 1,000,000,000,000,000 |
+
+# 
+<!-- _paginate: hold -->
+
+Let's rephrase this big-O notation into a more biologically relevant concept of **“Work”**
+
+<hr/>
+
+So we can say that **“Work”** slows as data grows
+
+| **Sequence length** | number of sequences | “Work” required (comparisons)|
+|---|---|---|
+| 1,000 | 3 | 1,000,000,000 |
+| 2,000 | 3 | 8,000,000,000 |
+| 3,000 | 3 | 27,000,000,000 |
+| 4,000 | 3 | 64,000,000,000 |
+
+# The scale of our big questions
+
+| Genomes | Length (bp) | Number | “Work” required |
+|---|---|---|---|
+| Species that make Rubisco | 1.5-500 mbp|>350,000| $\text{millions}^\text{hundreds\ of\ thosands}$|
+| SARS-CoV-2 | ~29,903 | >5 million | $29,903^\text{5 million}$|
+| Great ape evolution | ~30mbp | 5 | $\text{30 million}^5$ |
+
+<!-- 
+300k species of plants
+10's of thousands of species of algae
+thousands of species of cyanobacteria 
+
+The 2 genes that produce the subunits of Rubisco are ~1500 and ~500 bp, but the genomes of species that can make Rubisco can be 1.5 - 500 mbp long and we need to align the entire sequence to find where rubisco is being passed down the lineage
+
+-->
+
+# 
+![](images/memes/more-hamsetsr.png)
+
+<!-- _footer: "Created with the Imgflip Meme Generator"-->
+# Computational complexity
+
+
+# Progressive alignment
+
+There is a way to improve 
+
+
+
+
 
 # Why is MSA so computationally expensive?
 
@@ -147,45 +237,8 @@ There is a way to improve
 </div>
 
 <!-- _footer: "<sup>1</sup> [doi.org/10.1038/s41588-022-01033-y](doi.org/10.1038/s41588-022-01033-y) | Fig 1 [doi.org/10.7875/togopic.2020.199](doi.org/10.7875/togopic.2020.199)"-->
-# MSA for great apes genomes?
-<div class="two_columns">
-  <div>
 
-## The great apes
-- length: **~3 billion** bp
-- number: 5 
-- $O(3 Billion^\text{5})$ is also a very large number.
-- However great ape genomes are 97+% identical<sup>1</sup>
-##### **Required: a method to identify the few different regions in very long similar sequences**
-  </div>
-  <div>
-    <figure>
-      <img src="images/great_apes.drawio.svg" alt="Great apes" style="width: 100%;"/>
-      <figcaption>The family tree of great apes</figcaption>
-    </figure>
-  </div>
-</div>
 
-<!-- _footer: "<sup>1</sup> [citation needed]()"--> 
-
-# Alignment takes energy
-</br>
-</br>
-</br>
-<div class="two_columns">
-  <div>
-
-- Sequence alignment requires **computation**
-- Computation requires **energy**
-
-  </div>
-  <div>
-<figure>
-  <img src="images/memes/more-hamsetsr.png" style="width: 100%;"/>
-</figure>
-</div>
-
-<!-- _footer: "Created with the Imgflip Meme Generator"-->
 
 # Required: a more efficient method to align 
   - large numbers of small sequences
