@@ -389,6 +389,8 @@ Consider the same de Bruijn graph
   - DBG_L = $7\times8+8\times1 = 64$
   - DBG_LN =  $0\times1+5\times1 =5$
 
+  <!-- Why is DBG_LN() different from fastwork() -->
+
 # Results: Calculated from alignable sequences
 - BRCA1 genes in 56 species (citation needed)
 - BRCA1 genes in primates (citation needed)
@@ -437,8 +439,7 @@ Consider the same de Bruijn graph
 | IBD phage |  
 | Tara oceans phage |
 
-# Result: Sample unit tests: cyclic sequences
-
+# Sample unit tests: cyclic sequences
 ```python
 def test_pog_cycle(output_dir: Path):
     dbg = dbg_align.DeBrujinGraph(3,cogent3.DNA)
@@ -468,16 +469,23 @@ def test_pog_cycle(output_dir: Path):
 
 # Discussion
 
+de Bruijn graphs offer an interesting method to 
+- Break through the tautology at the heart of both Sequence alignment, and Phylogenetic reconstruction
+- Reduce the impact of sequence length and sequence number on traditional alignment approaches 
+
+### This method may make some very big questions tractable
 
 # Future directions
 
 Investigate the potential of using de Bruijn Graphs to;
 
-- identify reverse compliment regions from a dBG
-- identify genetic distance and infer phylogeny from a dBG
-- 
-
-![](images/dbg_phylogeny.drawio.svg)
+- Identify reverse complimented regions from a dBG
+- Identify genetic distance and infer phylogeny from a dBG
+- Process sequences in databases storing dBG structures back to the database, reducing active memory limits for large numbers of large sequences
+- Investigate advantage wrt species subject to lateral gene flow 
+  - eg: Bacteria, Archaea
+  - identifying multi-rooted phylogenies 
+- Investigate using dBG's for targeted sequence extraction using pattern recognition templates ( start and stop fragments similar to PCR primers)
 
 
 # Thanks
@@ -501,6 +509,14 @@ Investigate the potential of using de Bruijn Graphs to;
 # Questions
 
 # Errata
+
+<div>
+<blockquote>
+<p>Abandon all hope ye who pass this point</p>
+
+<cite>Tolkein ... probably</cite>
+</blockquote>
+</div>
 
 # Sequence alignment order complexity
 
