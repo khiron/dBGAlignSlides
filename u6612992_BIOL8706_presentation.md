@@ -34,28 +34,24 @@ style: |
 #### We start with a set of DNA sequences (Note all different lengths)
 
 # Sequence alignment
-<!-- paginate: hold -->
 
 ![](images/3alignment_alignment.drawio.svg)
 
 #### We align those sequences
 
 # Sequence alignment
-<!-- paginate: hold -->
 
 ![](images/3alignment_common.drawio.svg)
 
 #### By lining up regions that are similar
 
 # Sequence alignment
-<!-- paginate: hold -->
 
 ![](images/3alignment_differ.drawio.svg)
 
 #### Noting those that are different
 
 # Sequence alignment
-<!-- paginate: hold -->
 
 ![](images/3alignment_tree.drawio.svg)
 
@@ -76,6 +72,7 @@ style: |
 - how long ago sequences diverged
 
 # The central dogma of biology
+<!-- paginate: true -->
 
 $$
 \text{DNA} \xrightarrow{\text{transcribe}} \text{RNA} \xrightarrow{\text{translate}} \text{Protein}
@@ -86,10 +83,9 @@ If we can align homologous genes, we can infer homologous proteins
 Sequence alignment is a **time machine** for homologous proteins
 
 # 3 big ideas that require sequence alignment
-<!-- paginate: true -->
-- design crops for better yield
-- predict the trajectory of a virus
-- understand our own evolution
+- ## design crops for better yield
+- ## predict the trajectory of a virus
+- ## understand our own evolution
 
 
 # Consider RuBisCO
@@ -191,7 +187,7 @@ Sequence alignment
 
 # Sequence alignment is a big job
 
-- Historically sequence alignment was done manually, like a really big jigsaw puzzle
+- Historically sequence alignment was done manually, like a really big evil jigsaw puzzle
 - Since 1972 it's become a computational problem
 - The task is to compare **each** letter in **each** sequence with **all** the letters of **every** other sequence.
 
@@ -220,7 +216,7 @@ Where:
 
 # Too much math?
 
-Let's rephrase this big-O notation as $Work(L^n)$
+Let's rephrase this big-O notation as the order of $Work(L^n)$
 
 <hr/>
 
@@ -236,7 +232,7 @@ So we can reframe this as $Work$ **slows** as data **grows**
 # Too much math?
 <!-- _paginate: hold -->
 
-Let's rephrase this big-O notation as $Work(L^n)$
+Let's rephrase this big-O notation as the order of $Work(L^n)$
 
 <hr/>
 
@@ -389,6 +385,10 @@ Xingjian tackled the length problem using de Bruijn graphs
 
 ![](images/debruijngraph.drawio.svg)
 
+You might have heard of de Bruijn graphs for sequence assembly from reads.  
+
+De Bruijn graphs can also be used for sequence alignment.
+
 # De Bruijn graphs
 
 A De Bruijn graph is a directed graph that represents unique overlapping subsequences 
@@ -469,7 +469,7 @@ If we combine both sequences into a single de Bruijn graph, it will develop **�
 # Reducing the **length** of sequence to be aligned
 <!-- _paginate: hold -->
 
-If we collect nodes together into runs, with overlaps removed, we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
+If we transform the graph into a partial order graph, we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
 
 ![](images/dbg_resolve_alignment.drawio.svg)
 
@@ -493,6 +493,9 @@ And we can extend this trivially to multiple sequences.  Consider aligning 4 seq
     </div>
   </div>
 </div>
+<!-- 
+Interesting how the more sequences you add, the greater the potential advantage of using a de Bruijn graph
+-->
 
 # Taking the de Bruijn graph to the next level
 
@@ -519,7 +522,7 @@ Consider this partial order graph containing 4 sequences with overlaps removed
 # Reducing the **number** of sequences to be aligned
 <!-- _paginate: hold -->
 
-Consider this partial order graph containing 4 sequences with overlaps removed
+Consider this partial order graph containing 4 sequences
 ![height:80%](images/dbg_common.drawio.svg)
 
 | exhaustive alignment | reduce length | reduce length & number |
@@ -562,7 +565,7 @@ By ordering progressive alignment by ascending “bubble” depth, we can progre
 * Build a python library to
     * Resolve the De Bruijn graph to a partial order graph of segments to align
     * identify “bubbles”
-    * Develop unit tests to verify correctness of the algorithms
+    * Develop unit tests to verify correctness 
 * Develop statistics for de Bruijn graphs to predict efficiency
 
 # Results: Quickwork statistic
@@ -572,12 +575,10 @@ When transformed into a partial order graph
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
-Contains the following nodes (left to right) with overlaped sections removed TAC+T+G+C 
+Contains the following nodes (left to right) with ACAG and GCAT already aligned sections removed TAC+T+G+C 
 
-Quickwork = $\sum\text{node length - overlap}$ = $6$
-Quickwork is an estimate of alignment required in the de Bruijn graph 
+Quickwork = $\sum\text{non aligned node length }$ = $6$
 Quickwork has an order of $Work(node\_count)$ 
-
 
 # Results: Work statistic
 
