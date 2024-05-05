@@ -24,69 +24,134 @@ style: |
 
 ![](images/3alignment.drawio.svg)
 
-**What?**: _arranges sequences of DNA, RNA or Protein to identify regions of similarity_
-**Why?**: _Uncover evolutionary relationships between sequences_
-**How?**: _comparing each letter in each sequence with every other letter_
 
-# 3 big questions
 
-Imagine being able to unravel the path of evolution of any protein
-- To design crops for better yield
-- To predict the future behaviour of a virus
-- Or to understand our own evolution.
+# Sequence alignment
+<!-- paginate: hold -->
 
-These are 3 big questions that require sequence alignment
+![](images/3alignment_sequence.drawio.svg)
 
-# Consider Rubisco
+#### We start with a set of DNA sequences
 
-![bg right fit](images/rubisco.png)
+# Sequence alignment
+<!-- paginate: hold -->
 
-- one of the most abundant proteins on Earth 
+![](images/3alignment_alignment.drawio.svg)
+
+#### We align those sequences
+
+# Sequence alignment
+<!-- paginate: hold -->
+
+![](images/3alignment_common.drawio.svg)
+
+#### By lining up regions that are similar
+
+# Sequence alignment
+<!-- paginate: hold -->
+
+![](images/3alignment_differ.drawio.svg)
+
+#### Noting those that are different
+
+# Sequence alignment
+<!-- paginate: hold -->
+
+![](images/3alignment_tree.drawio.svg)
+
+#### And we can infer evolutionary relationships between those sequences 
+- ingroup
+- outgroup
+
+
+# Sequence alignment
+<!-- paginate: hold -->
+
+![](images/3alignment_infer.drawio.svg)
+
+#### And we can infer evolutionary relationships between those sequences 
+- ingroup
+- outgroup
+- extinct common ancestors 
+- how long ago sequences diverged
+
+# Recall the central dogma of biology
+
+$$
+\text{DNA} \xrightarrow{\text{transcription}} \text{RNA} \xrightarrow{\text{translation}} \text{Protein}
+$$
+If we can align homologous genes, we can infer homologous proteins
+
+![](images/phylogenetic_tree.drawio.svg)
+Sequence alignment is a **time machine** for homologous proteins
+
+# 3 big ideas
+<!-- paginate: true -->
+- design crops for better yield
+- predict the trajectory of a virus
+- understand our own evolution
+
+These all require sequence alignment
+
+# Consider RuBisCO
+<style>section { justify-content: flex-start; }</style>
+![bg right fit](images/RuBisCO.png)
+
+- The most abundant protein on Earth 
+- essential component of photosynthesis
+- primary role is to convert CO₂ to organic carbon
 
 <!-- _footer: "[Parry et al 2012 doi.org/10.1093/jxb/ers336](https://doi.org/10.1093/jxb/ers336) "-->
 
-# Consider Rubisco
+# Consider RuBisCO
 <!-- _paginate: hold -->
 ![bg right fit](images/photosynthesis.png)
 
-- one of the most abundant proteins on Earth 
-- **essential component of photosynthesis**
+- The most abundant protein on Earth 
+- essential component of photosynthesis
+- primary role is to convert CO₂ to organic carbon
+</br>
 <!-- _footer: "[Parry et al 2012 doi.org/10.1093/jxb/ers336](https://doi.org/10.1093/jxb/ers336) "-->
 
-# Consider Rubisco
+# Consider RuBisCO
 <!-- _paginate: hold -->
 ![bg right fit](images/carbonfixation.png)
 
-- one of the most abundant proteins on Earth 
+- The most abundant protein on Earth 
 - essential component of photosynthesis
-- **primary role is to convert CO₂ to organic carbon**
-
+- primary role is to convert CO₂ to organic carbon
+</br>
 <!-- _footer: "[Parry et al 2012 doi.org/10.1093/jxb/ers336](https://doi.org/10.1093/jxb/ers336) "-->
 
-# Evolution of Rubisco
+# Evolution of RuBisCO
 
-![bg right fit](images/rubiscoevolution.png)
+![bg right fit](images/RuBisCOevolution.png)
 
-- Genomic sequencing identified different clades of Rubisco in 3 kingdoms of life
-- Phylogenetic analysis suggests when **innovations** in Rubisco's lineage appeared 
-- We can compare that to the Earths atmosphere at that time
+- Sequence alignment can infer the evolutionary history of RuBisCO
+- when novel features appeared
+- And compare that with a geological understanding of the atmosphere at that time
+<br>
+
+ie: We can associate **features** in the protein with the **environment** in which it evolved?
 
 <!-- _footer: "[Whitney et al 2012 doi.org/10.1104/pp.110.164814](https://doi.org/10.1104/pp.110.164814) "-->
 
-<!-- This will tell us important things like Rubisco innovations for different partial pressures of O₂ and CO₂-->
-# What is the value of understanding Rubisco innovations?
+<!-- This will tell us important things like RuBisCO innovations for different partial pressures of O₂ and CO₂-->
+# The value of understanding RuBisCO features?
 
-- Rubisco is very slow so plants make a lot of it
-- Q: Can we design more efficient Rubisco?
-- $\uparrow$ Rubisco efficiency would lead to
-  - Food crop yield $\uparrow$
-  - Carbon sequestration $\uparrow$
-  - Biological hydrocarbon (eg: CH₄) production $\uparrow$
+Q: Can we design more efficient RuBisCO?
 
+$\Uparrow$ RuBisCO efficiency would lead to
+- Crop yield $\Uparrow$
+- Carbon sequestration $\Uparrow$
+
+<br>
+
+#### This is a big question that sequence alignment can contribute to answering
 <!-- 
-Rubisco processes ~3-10 CO₂ molecules per second
+RuBisCO processes ~3-10 CO₂ molecules per second
 Contrast with ATP Synthase which generates 100-200 molecules of ATP per second
-Can we engineer organisms that spend less time making Rubisco, and more into extracting CO₂ from the atmosphere and making **carbohydrates** or **hydrocarbons**
+Can we engineer organisms that spend less time making RuBisCO, and more into extracting CO₂ from the atmosphere and making **carbohydrates** or **hydrocarbons**
 
 -->
 
@@ -95,10 +160,11 @@ Can we engineer organisms that spend less time making Rubisco, and more into ext
 <div class="two_columns">
   <div>
 
-#### Alignment of eg: a viral sequences allows us to:
-  * Identify conserved regions for vaccine/drug development
-  * Identify changes in function to make predictions about the virus' behaviour
-  * Identify and prepare for emerging variants
+Sequence alignment 
+- allows us to identify conserved regions for vaccine/drug development
+- can help us predict the trajectory
+  
+#### These are big questions that sequence alignment can contribute to answering
 
   </div>
   <div>
@@ -110,10 +176,10 @@ Can we engineer organisms that spend less time making Rubisco, and more into ext
 <div class="two_columns">
   <div>
 
-- How do we differ from our closest relatives?
-- What was happening when our species diverged one from another?
 - What can we learn about our own evolution from our closest relatives?
 - Can that knowledge inform biomedical science
+
+#### This is a big question that sequence alignment can contribute to answering
 
   </div>
   <div>
@@ -124,18 +190,20 @@ Can we engineer organisms that spend less time making Rubisco, and more into ext
   </div>
 </div>
 
-# How we build a phylogeny from extant sequences
+# Sequence alignment is a big job
 
-![](images/3alignment.drawio.svg)
+- Historically sequence alignment was done manually, like a really big jigsaw puzzle
+- Since 1972 it's become a computational problem
+- to compare **each** letter in **each** sequence with **all** the letters of **every** other sequence.
 
-<br/>
+<br> 
 
-- Sequence alignment is the first step in building a phylogeny
-- Exhaustive alignment compares every character in each sequence with every character in every other sequence
+- The terms: **each**, **all** and **every** suggests that it will be a big job for computers too.
 
-# Exhaustive alignment takes time
 
-A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by 
+# Exhaustive sequence alignment takes time
+
+A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by the big-O notation
 
 ## $O(L^n)$ 
 
@@ -144,19 +212,20 @@ Where:
 - $n$ is the number of sequences
 
 <div><div class="quote">
-<p>“ Big-O tells you how code slows as data grows ”</p>
-<cite>Ned Batchelder (Python guru)</cite>
+<img src="images/nedbatchelder.png" style="width: 100px;"/>
+<p>“Big-O tells you how code <strong>slows</strong> as data <strong>grows</strong>”</p>
+<cite>Ned Batchelder</cite>
 </div></div>
 
 <!-- _footer: "[nedbatchelder.com](https://nedbatchelder.com/blog/201310/big_o_log_n.html)"-->
 
-# That's way too much math 
+# Too much math?
 
-Let's rephrase this big-O notation into a more biologically relevant concept of **“Work”**
+Let's rephrase this big-O notation as “Work”
 
 <hr/>
 
-So we can say that **“Work”** slows as data grows
+So we can reframe this as “Work” **slows** as data **grows**
 
 | Sequence length | **number of sequences** | “Work” required (comparisons)|
 |---|---|---|
@@ -165,14 +234,14 @@ So we can say that **“Work”** slows as data grows
 | 1,000 | 4 | 1 Trillion |
 | 1,000 | 5 | 1 Quadrillion |
 
-# 
+# Too much math?
 <!-- _paginate: hold -->
 
-Let's rephrase this big-O notation into a more biologically relevant concept of **“Work”**
+Let's rephrase this big-O notation as “Work”
 
 <hr/>
 
-So we can say that **“Work”** slows as data grows
+So we can reframe this as “Work” **slows** as data **grows**
 
 | **Sequence length** | number of sequences | “Work” required (comparisons)|
 |---|---|---|
@@ -181,43 +250,58 @@ So we can say that **“Work”** slows as data grows
 | 3,000 | 3 | 27 Billion |
 | 4,000 | 3 | 64 Billion |
 
-# The scale of our big questions
+# The scale of our 3 big problems
 
 | Genomes | Length (bp) | Number | “Work” required |
 |---|---|---|---|
-| Rubisco producers | 1.5-500 mbp|>350,000$_1$| $\text{millions}^\text{hundreds\ of\ thosands}$|
-| SARS-CoV-2 | ~29 kbp | >5 million$_2$ | $\text{29 thousand}^\text{5 million}$|
+| RuBisCO producers | 1.5-500 mbp|350K$_1$| $\text{millions}^\text{hundreds\ of\ thousands}$|
+| SARS-CoV-2 | ~29 kbp | >5M$_2$ | $\text{29 thousand}^\text{5 million}$|
 | Great apes | ~30mbp | 5 | $\text{30 million}^5$ |
 
 </br>
 
-$^1$ ~ 300k species of plants + 10's of thousands of species of algae + thousands of species of cyanobacteria
-$^2$ 5.1 million as of Oct 2021 - [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y)
+$^1$ back of the napkin math = 300K species of **plants** + 10's of thousands of species of **algae** + thousands of species of **cyanobacter**
+$^2$ 5.1M as of Oct 2021 - [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y)
 <!-- 
-Note: The genes that produce the 2 subunits of Rubisco are ~1500 and ~500 bp respectively
-but the genomes of species that can make Rubisco can be 1.5 - 500 mbp long 
-we need to align the entire sequence to find where Rubisco is being passed down the lineage
+Note: The genes that produce the 2 subunits of RuBisCO are ~1500 and ~500 bp respectively
+but the genomes of species that can make RuBisCO can be 1.5 - 500 mbp long 
+we need to align the entire sequence to find where RuBisCO is being passed down the lineage
 -->
 
 # 
-![bg fit grayscale](images/memes/more-hamsetsr.png)
+![bg right fit](images/memes/more-hamsetsr.png)
 
 <!-- _footer: "Created with the Imgflip Meme Generator"-->
-# Progressive alignment
+# <!--fit-->Progressive alignment
 
-We can reduce the work required as follows
-- align the 2 most closely related sequences $O(L^2)$ into a statistical model called a profile
-- align that profile with the next most closely related sequence ${n\choose{2}}$ times
+- align the 2 most closely related sequences into a statistical model called a profile
+- align that profile with the next most closely related sequence 
+- Do that ${n\choose{2}}$ times
 <br/>
 
 This reduces the work required from $O(L^n)$ $\rightarrow$ $O(n^2.L^2)$ 
 
+.... which is a lot less “Work”
+
 ![bg right fit](images/progressive_alignment.drawio.svg)
 
-# Do you see the problem?
 
-- To align multiple sequences first reconstruct a phylogeny so that you can find the 2 most closely related
+# Progressive multiple sequence alignment (MSA)
+
+- To align multiple sequences first reconstruct a phylogeny to order by distance
 - To reconstruct a phylogeny first align all sequences 
+
+# Progressive multiple sequence alignment (MSA)
+<!-- _paginate: hold -->
+
+- To align multiple sequences first reconstruct a phylogeny to order by distance
+- To reconstruct a phylogeny first align all sequences 
+
+<br/>
+<br/>
+<br/>
+
+#### Do you see the problem?
 
 # 
 
@@ -237,13 +321,17 @@ Recall: Sequence alignment is sensitive to
 An ideal strategy would reduce 
 - The **length** of sequences to be aligned
 - The **number** of sequences to be aligned
-- Reliance on knowing the phylogeny in advance
+- Dependence on knowing the phylogeny in advance
 
 # What if we could **quickly** remove similar regions?
 
 ![](images/similar_regions.drawio.svg)
 
-### We'd could focus our computational resources on just the regions that differ
+<br/>
+<br/>
+<br/>
+
+### We'd could focus resources on just the regions that differ
 
 # Sequence alignment using De Bruijn Graphs
 
@@ -251,13 +339,17 @@ This work builds on the work by Xingjian Leng in 2022, under the supervision of 
 
 Xingjian tackled the length problem using de Bruijn graphs 
 
+![](images/debruijngraph.drawio.svg)
+
 # De Bruijn graphs
 
-A De Bruijn graph is a directed graph that represents unique overlapping subsequences (or k-mers) at the nodes.
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences
 
-Building a De Bruijn graph has an order complexity of $O(nL)$ in other words “Work” scales linearly not exponentially.
+Building a De Bruijn graph is $O(nL)$ 
 
-The sequence CACAGTACAGCAT as a de Bruijn graph looks like this;
+#### This “Work” scales linearly not exponentially.
+
+The sequence CACAGTACAGCAT as a de Bruijn graph of order 3 (nodes overlap by 2 characters)  looks like:
 
 ![](images/debruijngraph.drawio.svg)
 
@@ -285,7 +377,7 @@ Sequence A: ![](images/dbg_sequencea.drawio.svg)
 
 Sequence B: ![](images/dbg_sequenceb.drawio.svg)
 
-If we combine both sequences into a single de Bruijn graph, it will develop “bubbles” where regions are different.
+If we combine both sequences into a single de Bruijn graph, it will develop **“bubbles”** where regions are different.
 
 ![](images/dbg_alignment.drawio.svg)
 
@@ -293,12 +385,12 @@ If we combine both sequences into a single de Bruijn graph, it will develop “b
 # Reducing the length of sequence to be aligned
 <!-- _paginate: hold -->
 
-We can collect nodes with 2 edge, or 1 edge into single nodes, and we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
+If we can collect nodes into runs of characters, with overlaps removed, we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
 
 ![](images/dbg_resolve_alignment.drawio.svg)
 
 
-Now we can use a traditional algorithm to align the regions $\boxed{AC\boxed{G}GC}$ and $\boxed{AC\boxed{T}GC}$, and we've reduced our “Work” function from $O(14^2)$ down to $O(5^2)$ = **7.8x** less work.
+Now we can use a traditional algorithm to align the regions $\boxed{G}$ and $\boxed{T}$, and we've reduced our “Work” function from $O(14\times 14)$ down to $O(1 \times 1)$ = **196x** less “work”.
 
 <!-- 
 An attentive observer may notice that because a de Bruijn graph with order 3 has an overlap of 2
@@ -307,80 +399,111 @@ the first and last 2 letters don't need to be aligned either so the work functio
 
 # De Bruijn multiple sequence alignment
 
-And we can extend this to multiple sequences.  Consider aligning the following sequences
+And we can extend this trivially to multiple sequences.  Consider aligning the following sequences
+
 `CACAGTACGGCAT` `CACAGTACTGCAT` `CACAGTACTGGAGCAT`& `CACAGTACTGATGCAT`
 
 </br>
 
-<div class="two_columns">
+<div class="two_columns" >
   <div>
 
   ![](images/dbg_msa.drawio.svg)
 
   </div>
-  <div>
-    Now we've reduced O(13x13x16x16) down to O(6x6x8x8) = <strong>18.8x</strong> less work
+  <div style="display:flex; align-items:flex-end">
+    <div>
+    <p>Now we've reduced O(13x13x16x16) down to O(1x1x5x4) = <strong>2,163x</strong> less “work”</p>
+    </div>
   </div>
 </div>
 
+
 # Taking the de Bruijn graph to the next level
 
-- recall an exact alignment has an order complexity of $O(L^n)$
-- if we reduce the length of the sequences we need to align we reduce L
+- recall an exact alignment has an order complexity of $O(L^n)$ or $O(L_1 \times L_2 \times \dots )$ for pairwise alignment
+- if we reduce the length of the sequences we need to align then we reduce L
 
 # Taking the de Bruijn graph to the next level
 <!-- _paginate: hold -->
 
-- recall an exact alignment has an order complexity of $O(L^n)$
-- if we reduce the length of the sequences we need to align we reduce L
+- recall an exact alignment has an order complexity of $O(L^n)$ or $O(L_1 \times L_2 \times \dots )$ for pairwise alignment
+- if we reduce the length of the sequences we need to align then we reduce L
+<div style>
+</div>
+
+<br/>
+<br/>
+
 #### **How about n?**
 
 # Reducing the number of sequences to be aligned
 
-Consider this de Bruijn graph containing 4 sequences
-
-![](images/dbg_common.drawio.svg)
+Consider this partial order graph containing 4 sequences with overlaps removed
+![height:80%](images/dbg_before_braid.drawio.svg)
 
 
 # Reducing the number of sequences to be aligned
 <!-- _paginate: hold -->
 
-Consider this de Bruijn graph containing 4 sequences
+Consider this partial order graph containing 4 sequences with overlaps removed
+![height:80%](images/dbg_common.drawio.svg)
 
-![](images/dbg_common.drawio.svg)
+| exhaustive alignment | reduce length | reduce length & number |
+|---|---|---|
+|$O(13\times 14\times 17 \times17 )$ | $O(5^4 + 3\times 2 \times 2 \times 3)$ | $O(5^2 + 3\times 2 \times 3)$ |
+| 52,598 | 661 (**79x** vs exhaustive) | 43 (**1223x**  vs exhaustive)|
 
-
-We don't have to align 4 sub-sequences at each alignment if sub-sequences that are the same have braided together.
-
-# Reducing the reliance on the phylogeny
+# Reduce the dependence on the phylogeny
 
 ![](images/dbg_phylogeny.drawio.svg)
+By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
-“Bubbles” that have shorter edges will be more closely related than “bubbles” with longer edges.
+# Reduce the dependence on the phylogeny
+<!-- _paginate: hold -->
 
-By ordering progressive alignment by ascending “bubbles” size, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+![](images/dbg_phylogeny_bubble_1.drawio.svg)
+By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+
+# Reduce the dependence on the phylogeny
+<!-- _paginate: hold -->
+
+![](images/dbg_phylogeny_bubble_2.drawio.svg)
+By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+
+# Reduce the dependence on the phylogeny
+<!-- _paginate: hold -->
+
+![](images/dbg_phylogeny_bubble_3.drawio.svg)
+By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+
+# Reduce the dependence on the phylogeny
+<!-- _paginate: hold -->
+
+![](images/dbg_phylogeny_bubble_4.drawio.svg)
+By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Project aims
 
 * Investigate De Bruijn graphs for multi-sequence alignment (MSA)
-* Build a python library 
+* Build a python library to
     * Resolve the De Bruijn graph to a partial order graph
     * identify “bubbles”
     * Develop unit tests to verify correctness of the algorithm
 * Develop statistics for de Bruijn graphs to predict efficiency
 
-# Results: Fastwork statistic
+# Results: Quickwork statistic
 
-Consider this de Bruijn graph containing 3 sequences [ACAGTACGGCAT, ACAGTACTGGCAT, ACAGCGCAT] of length 12, 13 and 9
+Consider this de Bruijn graph containing 3 sequences [`ACAGTACGGCAT`, `ACAGTACTGGCAT`, `ACAGCGCAT`] of length 12, 13 and 9
 When Transformed into a partial order graph 
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
-Contains the following nodes (left to right) with overlap removed AC+T+G+C+AT 
+Contains the following nodes (left to right) with overlaped sections removed AC+T+G+C+AT 
 
-Fastwork = $\sum\text{node length - overlap}$ = $7$
-Fastwork is an estimate of alignment required in the de Bruijn graph 
-Fastwork has a “ Work ” function of $O(node\_count)$
+Quickwork = $\sum\text{node length - overlap}$ = $7$
+Quickwork is an estimate of alignment required in the de Bruijn graph 
+Quickwork has a “ Work ” function of $O(node\_count)$ 
 
 
 # Results: Work statistic
@@ -435,7 +558,7 @@ Consider the same de Bruijn graph
 | 9 | IBD phage |  |  |  |  |
 | 9 | Tara oceans phage |  |  |  |  |
 
-# Results: Calculated fastwork from alignable sequences
+# Results: Calculated Quickwork from alignable sequences
 
 | Genomes | dBG(3) | dBG(4) | dBG(5) | dBG(6) | dBG(7) | dBG(8) | dBG(9) | 
 |---|---|---|---|---|---|---|---|
@@ -446,6 +569,7 @@ Consider the same de Bruijn graph
 | Tara oceans phage |
 
 # Sample unit tests: cyclic sequences
+
 ```python
 def test_pog_cycle(output_dir: Path):
     dbg = dbg_align.DeBrujinGraph(3,cogent3.DNA)
@@ -461,8 +585,6 @@ def test_pog_cycle(output_dir: Path):
     assert dbg.has_cycles()
     assert len(dbg) == 3
     assert dbg.names() == ["seq1", "seq2", "seq3"]
-    assert dbg["seq1"] == "ACAGTACGGCAT"
-    assert dbg["seq2"] == "ACAGTACTGGCAT"
     assert dbg["seq3"] == "ACAGCGCGCAT" # contains cycle
      
     dbg.to_pog()
@@ -476,8 +598,8 @@ def test_pog_cycle(output_dir: Path):
 # Discussion
 
 de Bruijn graphs offer an interesting method to 
-- Break through the tautology at the heart of both Sequence alignment, and Phylogenetic reconstruction
-- Reduce the impact of sequence length and sequence number on traditional alignment approaches 
+- Break the tautology at the heart of both Sequence alignment, and Phylogenetic reconstruction
+- Reduce the impact of both sequence length and sequence number over traditional alignment approaches 
 
 ### This method may make some very big questions tractable
 
@@ -513,9 +635,12 @@ Investigate the potential of using de Bruijn Graphs to;
 
 
 # Questions
+<!-- paginate: skip-->
 
 # Errata
+<!-- paginate: skip -->
 
+<div class="two_columns">
 <div>
 <blockquote>
 <p>Abandon all hope ye who pass this point</p>
@@ -523,9 +648,19 @@ Investigate the potential of using de Bruijn Graphs to;
 <cite>Tolkein ... probably</cite>
 </blockquote>
 </div>
+<div>
+
+- [Sequence alignment order complexity](#sequence-alignment-order-complexity)
+- [Pairwise sequence alignment methods](#pairwise-sequence-alignment-methods)
+- [Multiple sequence alignment strategies](#multiple-sequence-alignment-mas-strategies)
+- [unit tests](#unit-tests)
+
+
+</div>
 
 # Sequence alignment order complexity
-
+<!-- paginate: skip -->
+[<<Back to Errata](#errata)
 ## Pairwise sequence alignment
 - Compare every letter in one sequence to every letter in the other
 - order complexity of $O(mn)$ 
@@ -539,6 +674,8 @@ Investigate the potential of using de Bruijn Graphs to;
 <!-- The pairwise algorithms are both actually O(mn) where m and n are the lengths of the 2 sequences. -->
 
 # Pairwise sequence alignment methods: $O(mn)$
+<!-- paginate: skip -->
+[<<Back to Errata](#errata)
 <div class="two_columns">
   <div>
 
@@ -583,6 +720,9 @@ backtrace from bottom right selecting the value that _**maximizes**_ the alignme
 </div>
 
 # Multiple sequence alignment (MAS) strategies  
+<!-- paginate: skip -->
+[<<Back to Errata](#errata)
+
 - Pairwise alignment of each possible pair
     - ${n\choose 2} \times O(L^2) = \frac{n(n-1)}{2} \times O(L^2) = O(n^2.L^2)$
 - Progressive alignment eg: ClustalW
@@ -598,6 +738,9 @@ backtrace from bottom right selecting the value that _**maximizes**_ the alignme
     - Determine likely alignment based on the model
 
 # Unit tests
+<!-- paginate: skip -->
+[<<Back to Errata](#errata)
+
 library against edge case sequence alignments
       * long sequences
       * numerous sequences
