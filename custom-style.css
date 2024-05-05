@@ -11,6 +11,10 @@
       justify-content:  flex-start;
     }
 
+  .bottom_align_contents {
+    display:flex; 
+    align-items:flex-end
+  }
   .two_columns {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

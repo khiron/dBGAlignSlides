@@ -31,7 +31,7 @@ style: |
 
 ![](images/3alignment_sequence.drawio.svg)
 
-#### We start with a set of DNA sequences
+#### We start with a set of DNA sequences (Note all different lengths)
 
 # Sequence alignment
 <!-- paginate: hold -->
@@ -60,8 +60,8 @@ style: |
 ![](images/3alignment_tree.drawio.svg)
 
 #### And we can infer evolutionary relationships between those sequences 
-- ingroup
-- outgroup
+- ingroup (1 letter different)
+- outgroup (3 letters different)
 
 
 # Sequence alignment
@@ -70,28 +70,27 @@ style: |
 ![](images/3alignment_infer.drawio.svg)
 
 #### And we can infer evolutionary relationships between those sequences 
-- ingroup
-- outgroup
-- extinct common ancestors 
+- ingroup (1 letter different)
+- outgroup (3 letters different)
+- extinct common ancestor sequence 
 - how long ago sequences diverged
 
-# Recall the central dogma of biology
+# The central dogma of biology
 
 $$
-\text{DNA} \xrightarrow{\text{transcription}} \text{RNA} \xrightarrow{\text{translation}} \text{Protein}
+\text{DNA} \xrightarrow{\text{transcribe}} \text{RNA} \xrightarrow{\text{translate}} \text{Protein}
 $$
 If we can align homologous genes, we can infer homologous proteins
 
 ![](images/phylogenetic_tree.drawio.svg)
 Sequence alignment is a **time machine** for homologous proteins
 
-# 3 big ideas
+# 3 big ideas that require sequence alignment
 <!-- paginate: true -->
 - design crops for better yield
 - predict the trajectory of a virus
 - understand our own evolution
 
-These all require sequence alignment
 
 # Consider RuBisCO
 <style>section { justify-content: flex-start; }</style>
@@ -137,7 +136,7 @@ ie: We can associate **features** in the protein with the **environment** in whi
 <!-- _footer: "[Whitney et al 2012 doi.org/10.1104/pp.110.164814](https://doi.org/10.1104/pp.110.164814) "-->
 
 <!-- This will tell us important things like RuBisCO innovations for different partial pressures of O₂ and CO₂-->
-# The value of understanding RuBisCO features?
+# The value of understanding RuBisCO's features?
 
 Q: Can we design more efficient RuBisCO?
 
@@ -162,8 +161,8 @@ Can we engineer organisms that spend less time making RuBisCO, and more into ext
 
 Sequence alignment 
 - allows us to identify conserved regions for vaccine/drug development
-- can help us predict the trajectory
-  
+- can help us predict the virus's trajectory
+
 #### These are big questions that sequence alignment can contribute to answering
 
   </div>
@@ -194,18 +193,18 @@ Sequence alignment
 
 - Historically sequence alignment was done manually, like a really big jigsaw puzzle
 - Since 1972 it's become a computational problem
-- to compare **each** letter in **each** sequence with **all** the letters of **every** other sequence.
+- The task is to compare **each** letter in **each** sequence with **all** the letters of **every** other sequence.
 
 <br> 
 
-- The terms: **each**, **all** and **every** suggests that it will be a big job for computers too.
+- The terms: **each**, **all** and **every** should tell you that it will be a big job for computers too.
 
 
 # Exhaustive sequence alignment takes time
 
 A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by the big-O notation
 
-## $O(L^n)$ 
+## $O(L_1 \times L_2 \times \dots L_n)$ or $O(L^n)$
 
 Where: 
 - $L$ is the average length of the sequence
@@ -221,13 +220,13 @@ Where:
 
 # Too much math?
 
-Let's rephrase this big-O notation as “Work”
+Let's rephrase this big-O notation as $Work(L^n)$
 
 <hr/>
 
-So we can reframe this as “Work” **slows** as data **grows**
+So we can reframe this as $Work$ **slows** as data **grows**
 
-| Sequence length | **number of sequences** | “Work” required (comparisons)|
+| Sequence length | **number of sequences** | $Work$ required (comparisons)|
 |---|---|---|
 | 1,000 | 2 | 1 Million |
 | 1,000 | 3 | 1 Billion |
@@ -237,13 +236,13 @@ So we can reframe this as “Work” **slows** as data **grows**
 # Too much math?
 <!-- _paginate: hold -->
 
-Let's rephrase this big-O notation as “Work”
+Let's rephrase this big-O notation as $Work(L^n)$
 
 <hr/>
 
-So we can reframe this as “Work” **slows** as data **grows**
+So we can reframe this as $Work$ **slows** as data **grows**
 
-| **Sequence length** | number of sequences | “Work” required (comparisons)|
+| **Sequence length** | number of sequences | $Work$ required (comparisons)|
 |---|---|---|
 | 1,000 | 3 | 1 Billion |
 | 2,000 | 3 | 8 Billion |
@@ -252,7 +251,7 @@ So we can reframe this as “Work” **slows** as data **grows**
 
 # The scale of our 3 big problems
 
-| Genomes | Length (bp) | Number | “Work” required |
+| Genomes | Length (bp) | Number | $Work$ required |
 |---|---|---|---|
 | RuBisCO producers | 1.5-500 mbp|350K$_1$| $\text{millions}^\text{hundreds\ of\ thousands}$|
 | SARS-CoV-2 | ~29 kbp | >5M$_2$ | $\text{29 thousand}^\text{5 million}$|
@@ -261,7 +260,7 @@ So we can reframe this as “Work” **slows** as data **grows**
 </br>
 
 $^1$ back of the napkin math = 300K species of **plants** + 10's of thousands of species of **algae** + thousands of species of **cyanobacter**
-$^2$ 5.1M as of Oct 2021 - [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y)
+$^2$ 5.1M in GISAID and other public repositories as of Oct 2021 - [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y)
 <!-- 
 Note: The genes that produce the 2 subunits of RuBisCO are ~1500 and ~500 bp respectively
 but the genomes of species that can make RuBisCO can be 1.5 - 500 mbp long 
@@ -274,34 +273,83 @@ we need to align the entire sequence to find where RuBisCO is being passed down 
 <!-- _footer: "Created with the Imgflip Meme Generator"-->
 # <!--fit-->Progressive alignment
 
+Progressive alignment is a strategy that reduces the work required
+
+![bg right fit](images/progressive_alignment.drawio.svg)
+
+# <!--fit-->Progressive alignment
+<!-- _paginate: hold -->
+
+Progressive alignment is a strategy that reduces the work required
+
+**Strategy**:
+- align the 2 most closely related sequences into a statistical model called a profile
+
+![bg right fit](images/progressive_alignment_1.drawio.svg)
+
+# <!--fit-->Progressive alignment
+<!-- _paginate: hold -->
+
+Progressive alignment is a strategy that reduces the work required
+
+**Strategy**:
+- align the 2 most closely related sequences into a statistical model called a profile
+- align that profile with the next most closely related sequence 
+
+![bg right fit](images/progressive_alignment_2.drawio.svg)
+
+# <!--fit-->Progressive alignment
+<!-- _paginate: hold -->
+
+Progressive alignment is a strategy that reduces the work required
+
+**Strategy**:
+- align the 2 most closely related sequences into a statistical model called a profile
+- align that profile with the next most closely related sequence 
+- Do that ${n\choose{2}}$ times
+
+![bg right fit](images/progressive_alignment_3.drawio.svg)
+<!-- _paginate: hold -->
+
+# <!--fit-->Progressive alignment
+
+Progressive alignment is a strategy that reduces the work required
+
+**Strategy**:
 - align the 2 most closely related sequences into a statistical model called a profile
 - align that profile with the next most closely related sequence 
 - Do that ${n\choose{2}}$ times
 <br/>
 
-This reduces the work required from $O(L^n)$ $\rightarrow$ $O(n^2.L^2)$ 
+This reduces the order of $Work(L^n)$ $\rightarrow$ $Work(n^2.L^2)$ 
+... which is a lot less $Work$ 
 
-.... which is a lot less “Work”
-
-![bg right fit](images/progressive_alignment.drawio.svg)
-
+![bg right fit](images/progressive_alignment_4.drawio.svg)
+<!-- $Work$ grows just logarithmically with the number of sequences, rather than exponentially-->
 
 # Progressive multiple sequence alignment (MSA)
+<br/>
+<br/>
+<br/>
 
-- To align multiple sequences first reconstruct a phylogeny to order by distance
-- To reconstruct a phylogeny first align all sequences 
+- ## To align multiple sequences first reconstruct a phylogeny to order by distance
+- ## To reconstruct a phylogeny first align all sequences 
 
 # Progressive multiple sequence alignment (MSA)
 <!-- _paginate: hold -->
 
-- To align multiple sequences first reconstruct a phylogeny to order by distance
-- To reconstruct a phylogeny first align all sequences 
+<br/>
+<br/>
+<br/>
+
+- ## To align multiple sequences first reconstruct a phylogeny to order by distance
+- ## To reconstruct a phylogeny first align all sequences 
 
 <br/>
 <br/>
 <br/>
 
-#### Do you see the problem?
+## Do you see the problem?
 
 # 
 
@@ -311,7 +359,7 @@ This reduces the work required from $O(L^n)$ $\rightarrow$ $O(n^2.L^2)$
 
 # The problem space
 
-Recall: Sequence alignment is sensitive to 
+Sequence alignment is sensitive to 
 - The **length** of sequences to be aligned
 - The **number** of sequences to be aligned
 - the “ Chicken and Egg ” problem
@@ -335,7 +383,7 @@ An ideal strategy would reduce
 
 # Sequence alignment using De Bruijn Graphs
 
-This work builds on the work by Xingjian Leng in 2022, under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
+My work builds upon the work by Xingjian Leng in 2022, under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
 
 Xingjian tackled the length problem using de Bruijn graphs 
 
@@ -343,107 +391,132 @@ Xingjian tackled the length problem using de Bruijn graphs
 
 # De Bruijn graphs
 
-A De Bruijn graph is a directed graph that represents unique overlapping subsequences
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences 
 
-Building a De Bruijn graph is $O(nL)$ 
+Building a De Bruijn graph is $Work(nL)$ 
 
 #### This “Work” scales linearly not exponentially.
 
-The sequence CACAGTACAGCAT as a de Bruijn graph of order 3 (nodes overlap by 2 characters)  looks like:
+Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
 
-![](images/debruijngraph.drawio.svg)
+![](images/debruijngraph_exploded.drawio.svg)
 
-# Reducing the length of sequence to be aligned
+# De Bruijn graphs
+<!-- _paginate: hold -->
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences
 
-Consider the DNA sequence $\boxed{CACAGTACGGCAT}$ 
+Building a De Bruijn graph is $Work(nL)$ 
 
-When we represent that as a de Bruijn graph it looks like this:
+#### This “Work” scales linearly not exponentially.
 
+Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+
+![](images/debruijngraph_exploded_1.drawio.svg)
+
+# De Bruijn graphs
+<!-- _paginate: hold -->
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences
+
+Building a De Bruijn graph is $Work(nL)$ 
+
+#### This “Work” scales linearly not exponentially.
+
+Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+
+![](images/debruijngraph_exploded_2.drawio.svg)
+
+# De Bruijn graphs
+<!-- _paginate: hold -->
+A De Bruijn graph is a directed graph that represents unique overlapping subsequences
+
+Building a De Bruijn graph is $Work(nL)$ 
+
+#### This “Work” scales linearly not exponentially.
+
+Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+
+![](images/debruijngraph_exploded_3.drawio.svg)
+
+And we keep going until we have created the graph
+
+# Reducing the **length** of sequence to be aligned
+
+Sequence A: `CACAGTACGGCAT` 
 ![](images/dbg_sequencea.drawio.svg)
 
-# Reducing the length of sequence to be aligned
-<!-- _paginate: hold -->
-Consider we want to align that sequence $\boxed{CACAGTAC\boxed{G}GCAT}$ to the very similar sequence $\boxed{CACAGTAC\boxed{T}CGCAT}$
-
-Which as a De Bruijn graph looks like this:
-
+Sequence B: `CACAGTACTGCAT` 
 ![](images/dbg_sequenceb.drawio.svg)
 
+These differ in just one nucleotide in the middle of the sequence
 
-# Reducing the length of sequence to be aligned
+If we combine both sequences into a single de Bruijn graph, it will develop **“bubbles”** where regions are different.
+
+# Reducing the **length** of sequence to be aligned
 <!-- _paginate: hold -->
 
-Sequence A: ![](images/dbg_sequencea.drawio.svg)
+Sequence A: `CACAGTACGGCAT` 
+![](images/dbg_sequencea.drawio.svg)
 
-Sequence B: ![](images/dbg_sequenceb.drawio.svg)
+Sequence B: `CACAGTACTGCAT` 
+![](images/dbg_sequenceb.drawio.svg)
+
+These differ in just one nucleotide in the middle of the sequence
 
 If we combine both sequences into a single de Bruijn graph, it will develop **“bubbles”** where regions are different.
 
 ![](images/dbg_alignment.drawio.svg)
 
-
-# Reducing the length of sequence to be aligned
+# Reducing the **length** of sequence to be aligned
 <!-- _paginate: hold -->
 
-If we can collect nodes into runs of characters, with overlaps removed, we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
+If we collect nodes together into runs, with overlaps removed, we can see the regions that are similar which we don't need to align, and the regions that are different (in the gold box) which we do.
 
 ![](images/dbg_resolve_alignment.drawio.svg)
 
-
-Now we can use a traditional algorithm to align the regions $\boxed{G}$ and $\boxed{T}$, and we've reduced our “Work” function from $O(14\times 14)$ down to $O(1 \times 1)$ = **196x** less “work”.
-
-<!-- 
-An attentive observer may notice that because a de Bruijn graph with order 3 has an overlap of 2
-the first and last 2 letters don't need to be aligned either so the work function in this case can be reduced to $O(1^2)$
--->
+Now we can use a traditional algorithm to align the regions $\boxed{G}$ and $\boxed{T}$, and we've reduced $Work(14\times 14)$ down to $Work(1 \times 1)$ = **196x** less “work”.
 
 # De Bruijn multiple sequence alignment
 
-And we can extend this trivially to multiple sequences.  Consider aligning the following sequences
+And we can extend this trivially to multiple sequences.  Consider aligning 4 sequences
 
-`CACAGTACGGCAT` `CACAGTACTGCAT` `CACAGTACTGGAGCAT`& `CACAGTACTGATGCAT`
-
-</br>
-
+<br>
 <div class="two_columns" >
   <div>
 
   ![](images/dbg_msa.drawio.svg)
 
   </div>
-  <div style="display:flex; align-items:flex-end">
+  <div class = "bottom_align_contents">
     <div>
-    <p>Now we've reduced O(13x13x16x16) down to O(1x1x5x4) = <strong>2,163x</strong> less “work”</p>
+      <p>Now we've reduced Work(13x13x16x16) down to Work(1x1x5x4)</p>
+      <p> = <strong>2,163x</strong> less “work”</p>
     </div>
   </div>
 </div>
 
-
 # Taking the de Bruijn graph to the next level
 
-- recall an exact alignment has an order complexity of $O(L^n)$ or $O(L_1 \times L_2 \times \dots )$ for pairwise alignment
+- recall exact alignment has a Work order of $Work(L^n)$ or $Work(L_1 \times L_2 \times \dots \times L_n)$ 
 - if we reduce the length of the sequences we need to align then we reduce L
 
 # Taking the de Bruijn graph to the next level
 <!-- _paginate: hold -->
 
-- recall an exact alignment has an order complexity of $O(L^n)$ or $O(L_1 \times L_2 \times \dots )$ for pairwise alignment
+- recall exact alignment has a Work order of $Work(L^n)$ or $Work(L_1 \times L_2 \times \dots \times L_n)$ 
 - if we reduce the length of the sequences we need to align then we reduce L
-<div style>
-</div>
 
 <br/>
 <br/>
 
-#### **How about n?**
+## Can we change the **number** of sequences to align?
 
-# Reducing the number of sequences to be aligned
+# Reducing the **number** of sequences to be aligned
 
 Consider this partial order graph containing 4 sequences with overlaps removed
 ![height:80%](images/dbg_before_braid.drawio.svg)
 
 
-# Reducing the number of sequences to be aligned
+# Reducing the **number** of sequences to be aligned
 <!-- _paginate: hold -->
 
 Consider this partial order graph containing 4 sequences with overlaps removed
@@ -451,59 +524,59 @@ Consider this partial order graph containing 4 sequences with overlaps removed
 
 | exhaustive alignment | reduce length | reduce length & number |
 |---|---|---|
-|$O(13\times 14\times 17 \times17 )$ | $O(5^4 + 3\times 2 \times 2 \times 3)$ | $O(5^2 + 3\times 2 \times 3)$ |
+|$Work(13\times 14\times 17 \times17 )$ | $Work(5^4 + 3\times 2 \times 2 \times 3)$ | $Work(5^2 + 3\times 2 \times 3)$ |
 | 52,598 | 661 (**79x** vs exhaustive) | 43 (**1223x**  vs exhaustive)|
 
 # Reduce the dependence on the phylogeny
 
 ![](images/dbg_phylogeny.drawio.svg)
-By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_1.drawio.svg)
-By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_2.drawio.svg)
-By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_3.drawio.svg)
-By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_4.drawio.svg)
-By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Project aims
 
 * Investigate De Bruijn graphs for multi-sequence alignment (MSA)
 * Build a python library to
-    * Resolve the De Bruijn graph to a partial order graph
+    * Resolve the De Bruijn graph to a partial order graph of segments to align
     * identify “bubbles”
-    * Develop unit tests to verify correctness of the algorithm
+    * Develop unit tests to verify correctness of the algorithms
 * Develop statistics for de Bruijn graphs to predict efficiency
 
 # Results: Quickwork statistic
 
 Consider this de Bruijn graph containing 3 sequences [`ACAGTACGGCAT`, `ACAGTACTGGCAT`, `ACAGCGCAT`] of length 12, 13 and 9
-When Transformed into a partial order graph 
+When transformed into a partial order graph 
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
-Contains the following nodes (left to right) with overlaped sections removed AC+T+G+C+AT 
+Contains the following nodes (left to right) with overlaped sections removed TAC+T+G+C 
 
-Quickwork = $\sum\text{node length - overlap}$ = $7$
+Quickwork = $\sum\text{node length - overlap}$ = $6$
 Quickwork is an estimate of alignment required in the de Bruijn graph 
-Quickwork has a “ Work ” function of $O(node\_count)$ 
+Quickwork has an order of $Work(node\_count)$ 
 
 
 # Results: Work statistic
@@ -512,13 +585,16 @@ Consider the same de Bruijn graph
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
-- Work calculates the order complexity of alignment using 4 strategies
+- Work calculates the order of alignment work using 4 strategies
   - Exact = $13\times12\times9 = 1404$
   - Progressive = $13\times12+13\times9 = 285$
-  - DBG_L = $7\times8+8\times1 = 64$ (simplification of sequence length)
+  - DBG_L = $4\times5+5\times1 = 25$ (simplification of sequence length)
   - DBG_LN =  $0\times1+5\times1 =5$ (simplification of sequence length and count)
 
-  <!-- Why is DBG_LN() different from fastwork() -->
+  <!-- 
+  Why is DBG_LN() different from Quickwork()
+  Quickwork() does not take into account how the distribution of differences affects the work
+   -->
 
 # Results: Calculated from alignable sequences
 - BRCA1 genes in 56 species (citation needed)
@@ -598,8 +674,8 @@ def test_pog_cycle(output_dir: Path):
 # Discussion
 
 de Bruijn graphs offer an interesting method to 
-- Break the tautology at the heart of both Sequence alignment, and Phylogenetic reconstruction
 - Reduce the impact of both sequence length and sequence number over traditional alignment approaches 
+- Break the tautology at the heart of both Sequence alignment, and Phylogenetic reconstruction
 
 ### This method may make some very big questions tractable
 
@@ -613,8 +689,8 @@ Investigate the potential of using de Bruijn Graphs to;
 - Investigate advantage wrt species subject to lateral gene flow 
   - eg: Bacteria, Archaea
   - identifying multi-rooted phylogenies 
-- Investigate using dBG's for targeted sequence extraction using pattern recognition templates ( start and stop fragments similar to PCR primers)
-
+- Investigate using dBG's for targeted sequence extraction using pattern recognition templates
+- Identify strategies for chosing the ideal kmer length for a given dataset
 
 # Thanks
 
