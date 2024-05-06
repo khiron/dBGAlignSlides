@@ -706,9 +706,34 @@ Investigate the potential of using de Bruijn Graphs to;
 <img src="images/teadance.gif" style="margin: 20px; width: 100%; height: auto;" />
 </div>
 
-
-# Questions
+# Thanks
 <!-- paginate: skip-->
+
+<div class="two_columns">
+  <div>
+
+- Gavin Huttley
+- Yu Lin
+- Vijini Mallawaarachchi
+- Xinjian Leng
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+## Q&A
+
+
+</div>
+<div>
+
+
+## ... and the Huttleylab
+
+<img src="images/teadance.gif" style="margin: 20px; width: 100%; height: auto;" />
+</div>
+
 
 # Errata
 <!-- paginate: skip -->
