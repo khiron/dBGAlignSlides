@@ -606,11 +606,11 @@ Quickwork has an order of $Work(node\_count)$
 
 | Genomes | Average Length (bp) | Number | Description |
 |---|---|---|---|
-| BRCA1_divergent | 100,000 | 56 | BRCA1 gene divergent sample of 7 chosen from among 56 mammal species |
-| BRCA1_hominae | 100,000 | 10 | BRCA1 gene from 4 hominae |
-| SARS-CoV-2 | 30,000 | 5 | SARS-CoV-2 genomes (citation needed) |
-| IBD_phage | 30,000 | 5 | IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002) |
-| Ocean_phage | 30,000 | 5 | Tara oceans phage components (https://doi.org/10.1126/science.1261605) |
+| BRCA1_divergent | ~3k | 56 | BRCA1 gene divergent sample of 7 chosen from among 56 mammal species |
+| BRCA1_hominae | ~3k | 4 | BRCA1 gene from 4 hominae |
+| SARS-CoV-2 | 30k | 22 | SARS-CoV-2 genomes (citation needed) |
+| IBD_phage | 40k | 60 | IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002) |
+| Ocean_phage | 40k | 130 | Tara oceans phage components (https://doi.org/10.1126/science.1261605) |
 
 | Work metric | Description | 
 |---|---|
