@@ -533,31 +533,27 @@ Consider this partial order graph containing 4 sequences
 # Reduce the dependence on the phylogeny
 
 ![](images/dbg_phylogeny.drawio.svg)
-By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
+By ordering progressive alignment by descending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_1.drawio.svg)
-By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_2.drawio.svg)
-By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_3.drawio.svg)
-By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Reduce the dependence on the phylogeny
 <!-- _paginate: hold -->
 
 ![](images/dbg_phylogeny_bubble_4.drawio.svg)
-By ordering progressive alignment by ascending “bubble” depth, we can progressively align without needing to know in advance the phylogenetic relation between sequences.
 
 # Project aims
 
@@ -568,21 +564,9 @@ By ordering progressive alignment by ascending “bubble” depth, we can progre
     * Develop unit tests to verify correctness 
 * Develop statistics for de Bruijn graphs to predict efficiency
 
-# Results: Quickwork statistic
-
-Consider this de Bruijn graph containing 3 sequences [`ACAGTACGGCAT`, `ACAGTACTGGCAT`, `ACAGCGCAT`] of length 12, 13 and 9
-When transformed into a partial order graph 
-
-![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
-
-Contains the following nodes (left to right) with ACAG and GCAT already aligned sections removed TAC+T+G+C 
-
-Quickwork = $\sum\text{non aligned node length }$ = $6$
-Quickwork has an order of $Work(node\_count)$ 
-
 # Results: Work statistic
 
-Consider the same de Bruijn graph 
+Consider the same order 3 de Bruijn graph 
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
@@ -592,58 +576,63 @@ Consider the same de Bruijn graph
   - DBG_L = $4\times5+5\times1 = 25$ (simplification of sequence length)
   - DBG_LN =  $0\times1+5\times1 =5$ (simplification of sequence length and count)
 
+# Results: Quickwork statistic
+
+Consider this order 3 de Bruijn graph containing 3 sequences [`ACAGTACGGCAT`, `ACAGTACTGGCAT`, `ACAGCGCAT`] of length 12, 13 and 9
+When transformed into a partial order graph 
+
+![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
+
+Contains the following nodes (left to right) with ACAG and GCAT (already aligned sections) removed TAC+T+G+C 
+
+Quickwork = $\sum\text{non aligned node length }$ = $6$
+Quickwork has an order of $Work(node\_count)$ 
+
   <!-- 
   Why is DBG_LN() different from Quickwork()
-  Quickwork() does not take into account how the distribution of differences affects the work
+  Quickwork() does not take into account how the distribution of differences affects the work or how zero length edges affect the work
    -->
 
-# Results: Calculated from alignable sequences
-- BRCA1 genes in 56 species (citation needed)
-- BRCA1 genes in primates (citation needed)
-- SARS-CoV-2 genomes (citation needed)
-- IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002)
-- Tara oceans phage components (https://doi.org/10.1126/science.1261605)
+# Results: Calculated order complexity 
 
-# Results: Calculated order complexity from alignable sequences
+## Sample Sequence sets
 
-| kmer | Genomes | Exact | Progressive | dBG_L | dBG_LN |
-|---|---|---|---|---|---|
-| 3 | BRCA1 56 species |  |  |  |  |
-| 3 | BRCA1 primates |  |  |  |  |
-| 3 | SARS-CoV-2 |  |  |  |  |
-| 3 | IBD phage |  |  |  |  |
-| 3 | Tara oceans phage |  |  |  |  |
+| Genomes | Average Length (bp) | Number | Description |
+|---|---|---|---|
+| BRCA1_divergent | 100,000 | 56 | BRCA1 gene divergent sample of 7 chosen from among 56 mammal species |
+| BRCA1_hominae | 100,000 | 10 | BRCA1 gene from 4 hominae |
+| SARS-CoV-2 | 30,000 | 5 | SARS-CoV-2 genomes (citation needed) |
+| IBD_phage | 30,000 | 5 | IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002) |
+| Ocean_phage | 30,000 | 5 | Tara oceans phage components (https://doi.org/10.1126/science.1261605) |
 
-# Results: Calculated order complexity from alignable sequences
-<!-- _paginate: hold -->
+| Work metric | Description | 
+|---|---|
+| Exact | Exhaustive alignment 
+| Progressive | Progressive alignment
+| dBG(3)_L | De Bruijn graph of order 3 with length simplification 
+| dBG(3)_LN | De Bruijn graph of order 3 with length and number simplification
+| dBG($k$)_LN | De Bruijn graph of order $k$ with length and number simplification
 
-| kmer | Genomes | Exact | Progressive | dBG_L | dBG_LN |
-|---|---|---|---|---|---|
-| 6 | BRCA1 56 species |  |  |  |  |
-| 6 | BRCA1 primates |  |  |  |  |
-| 6 | SARS-CoV-2 |  |  |  |  |
-| 6 | IBD phage |  |  |  |  |
-| 6 | Tara oceans phage |  |  |  |  |
-# Results: Calculated order complexity from alignable sequences
-<!-- _paginate: hold -->
 
-| kmer | Genomes | Exact | Progressive | dBG_L | dBG_LN |
-|---|---|---|---|---|---|
-| 9 | BRCA1 56 species |  |  |  |  |
-| 9 | BRCA1 primates |  |  |  |  |
-| 9 | SARS-CoV-2 |  |  |  |  |
-| 9 | IBD phage |  |  |  |  |
-| 9 | Tara oceans phage |  |  |  |  |
+# Results: Calculated order of Work
 
-# Results: Calculated Quickwork from alignable sequences
+| Genomes | Exact | Progressive | dBG(3)_L | dBG(3)_LN | dBG(4)_LN | dBG(5)_LN | dBG(6)_LN | dBG(7)_LN |dBG(8)_LN |dBG(9)_LN |
+|---|---|---|---|---|---|---|---|---|---|---|
+| BRCA1_divergent |  |  |  |  |
+| BRCA1_hominae |  |  |  |  |
+| SARS-CoV-2 |  |  |  |  |
+| IBD_phage |  |  |  |  |
+| Ocean_phage |  |  |  |  |
+
+# Results: Quickwork 
 
 | Genomes | dBG(3) | dBG(4) | dBG(5) | dBG(6) | dBG(7) | dBG(8) | dBG(9) | 
 |---|---|---|---|---|---|---|---|
-| BRCA1 56 species |  
-| BRCA1 primates |  
-| SARS-CoV-2 |  
-| IBD phage |  
-| Tara oceans phage |
+| BRCA1_divergent |  |  |  |  |
+| BRCA1_hominae |  |  |  |  |
+| SARS-CoV-2 |  |  |  |  |
+| IBD_phage |  |  |  |  |
+| Ocean_phage |  |  |  |  |
 
 # Sample unit tests: cyclic sequences
 
