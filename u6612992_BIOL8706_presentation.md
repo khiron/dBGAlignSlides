@@ -555,6 +555,13 @@ By ordering progressive alignment by descending “bubble” depth, we can progr
 
 ![](images/dbg_phylogeny_bubble_4.drawio.svg)
 
+# Reduce the dependence on the phylogeny
+<!-- _paginate: hold -->
+
+![](images/dbg_phylogeny_bubble_5.drawio.svg)
+
+## Alignment completed without requiring a phylogenetic guide tree
+
 # Project aims
 
 * Investigate De Bruijn graphs for multi-sequence alignment (MSA)
@@ -680,7 +687,7 @@ Investigate the potential of using de Bruijn Graphs to;
   - eg: Bacteria, Archaea
   - identifying multi-rooted phylogenies 
 - Investigate using dBG's for targeted sequence extraction using pattern recognition templates
-- Identify strategies for chosing the ideal kmer length for a given dataset
+- Identify strategies for chosing the ideal kmer length for a given set of sequences
 
 # Thanks
 
