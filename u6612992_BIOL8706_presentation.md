@@ -703,7 +703,7 @@ Investigate the potential of using de Bruijn Graphs to;
 
 ## ... and the Huttleylab
 
-<img src="images/teadance.gif" />
+<img src="images/teadance.gif" style="margin: 20px; width: 100%; height: auto;" />
 </div>
 
 
