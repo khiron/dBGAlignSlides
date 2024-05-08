@@ -267,14 +267,17 @@ but the genomes of species that can make RuBisCO can be 1.5 mbp - 150 gbp long
 ![bg right fit](images/memes/more-hamsetsr.png)
 
 <!-- _footer: "Created with the Imgflip Meme Generator"-->
+# 
+<!-- _paginate: hold -->
+![bg right fit](images/memes/smarterhamstersjpg.jpg)
+
+<!-- _footer: "Created with the Imgflip Meme Generator"-->
 # STATE OF THE ART: Progressive alignment
 
 <div class="two_columns">
   <div>
 
-Progressive alignment is a method that reduces the work required
-
-**Strategy**:
+**Method**:
 1. start with a phylogeny
 
   </div>
@@ -293,9 +296,7 @@ Progressive alignment is a method that reduces the work required
 <div class="two_columns">
   <div>
   
-Progressive alignment is a method that reduces the work required
-
-**Strategy**:
+**Method**:
 1. start with a phylogeny
 1. align the **most closely related** sequences into a statistical model called a profile
 
@@ -315,9 +316,7 @@ Progressive alignment is a method that reduces the work required
 <div class="two_columns">
   <div>
   
-Progressive alignment is a method that reduces the work required
-
-**Strategy**:
+**Method**:
 1. start with a phylogeny
 1. align the most closely related sequences into a statistical model called a profile
 1. align that profile with the **next** most closely related sequence 
@@ -338,9 +337,7 @@ Progressive alignment is a method that reduces the work required
 <div class="two_columns">
   <div>
   
-Progressive alignment is a method that reduces the work required
-
-**Strategy**:
+**Method**:
 1. start with a phylogeny
 1. align the most closely related sequences into a statistical model called a profile
 1. align that profile with the next most closely related sequence 
@@ -360,9 +357,7 @@ Progressive alignment is a method that reduces the work required
 <div class="two_columns">
   <div>
   
-Progressive alignment is a method that reduces the work required
-
-**Strategy**:
+**Method**:
 1. start with a phylogeny
 1. align the most closely related sequences into a statistical model called a profile
 1. align that profile with the next most closely related sequence 
@@ -392,7 +387,7 @@ Progressive alignment with a guide tree is used because it gives better results 
 So the statistical performance of this approach is better than alternative methods. 
 -->
 
-# Progressive multiple sequence alignment (MSA) ...
+# Progressive multiple sequence alignment
 
 # 
 <!-- _paginate: hold -->
@@ -678,20 +673,20 @@ It is worth perservering with this method to see if it can be applied to evolved
 
 - [AIMS](#project-aims)          
 - [BACKGROUND: Sequence alignment](#background-sequence-alignment)
-- [CASES](#3-instructive-applications-of-sequence-alignment)
+- [CASES](#3-instructive-cases-of-sequence-alignment)
 - [PROBLEM](#problem-sequence-alignment-is-a-big-job)
-- [STATE OF THE ART](#progressive-alignment)
+- [STATE OF THE ART](#state-of-the-art-progressive-alignment)
 - [Alignment using De Bruijn Graphs](#sequence-alignment-using-de-bruijn-graphs)
-- [Reduce **length** of fragments](#reducing-the-length-of-sequence-to-be-aligned)
+- [Reduce **length** of fragments](#reducing-the-length-of-fragments-to-be-aligned)
 - [RESULTS](#result-reducing-the-number-of-fragments-to-be-aligned)
   - [Reduce **number** of fragments](#result-reducing-the-number-of-fragments-to-be-aligned)
-  - [Break reliance on **phylogeny**](#result-reduce-the-dependence-on-the-phylogeny)
+  - [Break **phylogeny** dependence](#result-reduce-the-dependence-on-the-phylogeny)
   - [work **statistics**](#result-work-statistic-from-partial-order-graphs)
 - [SUMMARY](#summary)
 - [FUTURE DIRECTIONS](#future-directions)
 - [SUPPLEMENTARY](#supplementary)
 
-[1](#project-aims) [2](#background-sequence-alignment) [3](#3-instructive-cases-of-sequence-alignment) [4](#case-evolution-of-rubisco) [5](#case-trajectory-of-the-spike-protein-of-sars-cov-2) [6](#case-our-immediate-family-tree)[7](#problem-sequence-alignment-is-a-big-job) [8](#problem-exhaustive-sequence-alignment-takes-time) [9](#reframe-work-increases-as-data-grows) [10](#problem-the-scale-of-our-3-cases) [11](#state-of-the-art-progressive-alignment) [12](#state-of-the-art-progressive-alignment-1) [13](#the-problem-space) [14](#what-if-we-could-quickly-remove-similar-regions) [15](#sequence-alignment-using-de-bruijn-graphs) [16](#de-bruijn-graphs) [17](#reducing-the-length-of-fragments-to-be-aligned)
+[1](#project-aims) [2](#background-sequence-alignment) [3](#3-instructive-cases-of-sequence-alignment) [4](#case-evolution-of-rubisco) [5](#case-trajectory-of-the-spike-protein-of-sars-cov-2) [6](#case-our-immediate-family-tree)[7](#problem-sequence-alignment-is-a-big-job) [8](#problem-exhaustive-sequence-alignment-takes-time) [9](#reframe-work-increases-as-data-grows) [10](#problem-the-scale-of-our-3-cases) [11](#state-of-the-art-progressive-alignment) [12](#progressive-multiple-sequence-alignment) [13](#the-problem-space) [14](#what-if-we-could-quickly-remove-similar-regions) [15](#sequence-alignment-using-de-bruijn-graphs) [16](#de-bruijn-graphs) [17](#reducing-the-length-of-fragments-to-be-aligned)
 [18](#de-bruijn-multiple-sequence-alignment) [19](#taking-the-de-bruijn-graph-to-the-next-level) [20](#result-reducing-the-number-of-fragments-to-be-aligned) [21](#result-reduce-the-dependence-on-the-phylogeny) [22](#result-work-statistic-from-partial-order-graphs) [23](#summary) [24](#future-directions) [25](#thanks)
 
 
