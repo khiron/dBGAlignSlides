@@ -20,16 +20,18 @@ style: |
 
 # Project aims
 <!-- paginate: true -->
-<!-- header: _Dividing and conquering sequence alignment using De Bruijn Graphs_ -->
+<!-- header: <a href="#questions--answers">_Dividing and conquering sequence alignment using De Bruijn Graphs_</a>-->
 
-Explore de Bruijn graphs as a method for improving sequence alignment efficiency, while breaking the tautological conundrum at the heart of bioinformatics
-  - Develop a prototype that allows us to 
-    - project sets of sequences to a **de Bruijn graph**
-    - project a de Bruijn graph to a **partial order graph** 
-    - Extract from a partial order graph **fragments** for traditional alignment methods
-  - Produce statistics for a partial order graph to estimate compute performance of alignment
+<br/>
 
-![bg right height: 80%](images/projection.drawio.svg)
+Build prototype
+1. **construct** a de Bruijn graph from sequences
+2. **projects** de Bruijn graph to a partial order graph
+3. **emit** fragments from the partial order graph
+4. generate statistics on work required for alignment
+
+
+![bg right fit](images/projection.drawio.svg)
 
 # BACKGROUND: Sequence alignment
 
@@ -97,9 +99,9 @@ where the only differences are in these deletion events
 
 
 
-##### Sequence alignment coupled with a phylogeny is a **time machine** for homologous proteins
+##### Sequence alignment + phylogeny is a **time machine** for homologous sequences
 
-# 3 applications for sequence alignment
+# 3 instructive cases of sequence alignment
 <!-- paginate: true -->
 
 - Evolution of RuBisCO
@@ -118,7 +120,7 @@ that motivates the need to find a better way to do sequence alignment
 
 - Enzyme that converts CO₂ to organic carbon during photosynthesis
 - Sequence alignment can infer it's evolutionary history
-- Which we can compare with a geological understanding of the atmosphere at that time
+- Compare with a geological understanding of the atmosphere at that time
 <br>
 
 We can associate **features** appearing in the protein with the **environment** in which it evolved?
@@ -180,11 +182,11 @@ This ability to decompose history can be applied to proteins like RuBisCO, it ca
 
 A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by the following big-O notation
 
-## $O(L_1 \times L_2 \times \dots L_\#)$ or $O(L^\#)$
+## $O(L^n)$
 
 Where: 
 - $L$ is the average length of the sequence
-- $\#$ is the number of sequences
+- $n$ is the number of sequences
 
 <div><div class="quote">
 <img src="images/nedbatchelder.png" style="width: 100px;"/>
@@ -196,11 +198,11 @@ Where:
 
 # REFRAME: Work **increases** as data **grows**
 
-Let's rephrase this big-O notation as the order of $Work(L^\#)$
+Let's rephrase this big-O notation as the order of $Work(L^n)$
 
 <hr/>
 
-| **Average length (L)** | Number of sequences (#) | $Work$ required (comparisons)|
+| **Average length (L)** | Number of sequences (n) | $Work$ required (comparisons)|
 |---|---|---|
 | 1,000 | 3 | 1,000,000,000 |
 | 2,000 | 3 | 8,000,000,000 |
@@ -216,11 +218,11 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 # REFRAME: Work **increases** as data **grows**
 <!-- _paginate: hold -->
 
-Let's rephrase this big-O notation as the order of $Work(L^\#)$
+Let's rephrase this big-O notation as the order of $Work(L^n)$
 
 <hr/>
 
-| Average length (L)| **Number of sequences (#)** | $Work$ required (comparisons)|
+| Average length (L)| **Number of sequences (n)** | $Work$ required (comparisons)|
 |---|---|---|
 | 1,000 | 2 | 1,000,000 |
 | 1,000 | 3 | 1,000,000,000 |
@@ -237,10 +239,10 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 
 # PROBLEM: The scale of our 3 cases
 
-| Case | Average length (L) | Number of sequences (#) | $Work$ required ($L^\#$)|
+| Case | Average length (L) | Number of sequences (n) | $Work$ required ($L^n$)|
 |---|---|---|---|
-| RuBisCO  | 2 kbp| ~350,000 | $\text{2,000}^{350,000}$|
-| SARS-CoV-2 | 29 kbp | >5,000,000$_1$ | $\text{29,000}^{5,000,000}$|
+| RuBisCO  | 2 kbp| 350,000 | $\text{2,000}^{350,000}$|
+| SARS-CoV-2 | 29 kbp | 5,000,000* | $\text{29,000}^{5,000,000}$|
 | Great apes | 3 gbp | 5 | $\text{3 billion}^5$ |
 
 </br>
@@ -248,11 +250,11 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 
 ## Large computation problems take
 
-- ### Time 
-- ### Money
-- ### Energy 
+- ## Time :watch: 
+- ## Money :heavy_dollar_sign:
+- ## Energy :bulb: 
 
-<!-- _footer: <sub>1</sub> GISAID had 5.1M copies of SARS-CoV-2 sequences as of Oct 2021 [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y) -->
+<!-- _footer: * GISAID had 5.1M copies of SARS-CoV-2 sequences as of Oct 2021 [www.nature.com/articles/s41588-022-01033-y](https://www.nature.com/articles/s41588-022-01033-y) -->
 
 <!-- 
 Note: The genes that produce the 2 subunits of RuBisCO are ~1500 and ~500 bp respectively
@@ -373,10 +375,10 @@ Progressive alignment is a method that reduces the work required
 ## Phylogenetic tree
 ![fit](images/progressive_alignment_4.drawio.svg)
 <br/>
-This reduces the order of $Work(L^\#)$ $\rightarrow$ $Work(i.L^2)$ 
+This reduces the order of $Work(L^n)$ $\rightarrow$ $Work(i.L^2)$ 
 - Where $i$ is the number of internal nodes originally in the tree 
-  - binary tree: $i=(\#-1)$
-  - non-binary tree: $1 \ge i \le (\#-1)$ 
+  - binary tree: $i=(n-1)$
+  - non-binary tree: $1 \ge i \le (n-1)$ 
 
 <br/>
 
@@ -395,7 +397,7 @@ So the statistical performance of this approach is better than alternative metho
 
 # 
 
-![bg fit 80%](images/memes/chicken-egg.png)
+![bg fit 80%](images/memes/chickenegg.jpg)
 
 <!-- _footer: "Created with the Imgflip Meme Generator"-->
 
@@ -425,7 +427,7 @@ Can we reproduce the same statistical behaviour while doing less work
 <br/>
 <br/>
 
-### We'd could focus on just the regions that differ
+### We could pass this function that takes so much time just the regions that differ
 
 # Sequence alignment using De Bruijn Graphs
 
@@ -646,11 +648,11 @@ de Bruijn graphs may offer a method to
 
 # Future directions
 
-- from first principals, in sequences evolved in an order consistent with data from a progressive tree, **to show that the bubbles in the graph correspond to nodes in a tree** and are similarly ordered
-- using data with known topologies and unambiguous evolution
+- From first principals, in sequences evolved in an order consistent with data from a progressive tree, **to show that the bubbles in the graph correspond to nodes in a tree** and are similarly ordered
+- Using data with known topologies and unambiguous evolution
   - show that the algorithm has **statistical performance** consistent with progressive alignment
   - show that the algorithm has **superior performance wrt time and memory** to progressive alignment
-- investigate sequences in species subject to **lateral gene flow** which progressive alignment struggles with
+- Investigate sequences in species subject to **lateral gene flow** which progressive alignment struggles with
 
 # Thanks
 
@@ -658,9 +660,10 @@ de Bruijn graphs may offer a method to
   <div>
 
 - Gavin Huttley
-- Yu Lin
 - Vijini Mallawaarachchi
+- Yu Lin
 - Xinjian Leng
+
 </div>
 <div>
 
@@ -669,39 +672,43 @@ de Bruijn graphs may offer a method to
 <img src="images/teadance.gif" style="margin: 20px; width: 90%; height: auto;" />
 </div>
 
-# Thanks
+# Questions & Answers
 <!-- paginate: skip-->
 
-<div class="two_columns">
-  <div>
 
-- Gavin Huttley
-- Vijini Mallawaarachchi
-- Yu Lin
-- Xinjian Leng
+<!-- paginate: true -->
+<!-- header: <a href="#contents">_Dividing and conquering sequence alignment using De Bruijn Graphs_</a>-->
 
 <br/>
-<br/>
-<br/>
-<br/>
 
-## Q&A
+- [AIMS](#project-aims)          
+- [BACKGROUND: Sequence alignment](#background-sequence-alignment)
+- [CASES](#3-instructive-applications-of-sequence-alignment)
+- [PROBLEM](#problem-sequence-alignment-is-a-big-job)
+- [STATE OF THE ART](#progressive-alignment)
+- [Alignment using De Bruijn Graphs](#sequence-alignment-using-de-bruijn-graphs)
+- [Reduce the **length** of fragments](#reducing-the-length-of-sequence-to-be-aligned)
+- [RESULTS](#result-reducing-the-number-of-sequences-to-be-aligned)
+  - [RESULT: Reduce the **number** of fragments](#result-reducing-the-number-of-sequences-to-be-aligned)
+  - [RESULT: Reduce the dependence on the **phylogeny**](#result-reduce-the-dependence-on-the-phylogeny)
+  - [RESULT: work **statistics**](#result-work-statistic-from-partial-order-graphs)
+- [SUMMARY](#summary)
+- [FUTURE DIRECTIONS](#future-directions)
+- [SUPPLEMENTARY](#supplementary)
 
 
-</div>
-<div>
+![bg right fit](images/projection.drawio.svg)
 
-
-## ... and the Huttleylab
-
-<img src="images/teadance.gif" style="margin: 20px; width: 90%; height: auto;" />
-</div>
 
 # Citations
 
-- Leng, Xingjian. ‘Sequence Alignment Using De Bruijn Graphs’. Australian National University, 2023.
+- Leng, Xingjian (2023), ‘Sequence Alignment Using De Bruijn Graphs’. Australian National University
 
-Whitney, Houtz, and Alonso, ‘Advancing Our Understanding and Capacity to Engineer Nature’s CO2-Sequestering Enzyme, Rubisco’. https://pubmed.ncbi.nlm.nih.gov/20974895/
+- [Needleman & Wunsch (1970), 'A general method applicable to the search for similarities in the amino acid sequence of two proteins'  doi.org/10.1016/0022-2836(70)90057-4, 2010](https://doi.org/10.1016/0022-2836(70)90057-4)
+
+- [Whitney, Houtz, and Alonso (2010), ‘Advancing Our Understanding and Capacity to Engineer Nature’s CO2-Sequestering Enzyme, Rubisco’ DOI: 10.1104/pp.110.164814](https://pubmed.ncbi.nlm.nih.gov/20974895/)
+
+
 
 
 # Sample data sources
@@ -725,96 +732,31 @@ Whitney, Houtz, and Alonso, ‘Advancing Our Understanding and Capacity to Engin
 </div>
 <div>
 
-- [Sequence alignment order complexity](#sequence-alignment-order-complexity)
-- [Pairwise sequence alignment methods](#pairwise-sequence-alignment-methods)
-- [Multiple sequence alignment strategies](#multiple-sequence-alignment-mas-strategies)
-- [unit tests](#unit-tests)
+- [sample data sources](#sample-data-sources)
+- [Bubbles in real data denote phylogenetic nodes](#bubbles-in-real-data-denote-phylogenetic-nodes)
+- unit tests against edge case sequence alignments
+  - long sequences
+  - numerous sequences
+  - [cyclic sequences](#cyclic-sequences)
+  - bubbles within bubbles
+  - sequential bubbles
 
 
 </div>
 
-# Sequence alignment order complexity
-<!-- paginate: skip -->
-[<<Back to Supplementary](#supplementary)
-## Pairwise sequence alignment
-- Compare every letter in one sequence to every letter in the other
-- order complexity of $O(mn)$ 
-  - where **m** and **n** are lengths of the sequences
-## Multiple sequence alignment (MSA)
-- Perform a pairwise alignment of every sequence to every other sequence
-- order complexity of $O(L^n)$ 
-  - where **L** is the length of the sequences 
-  - **n** is the number of sequences
-
-<!-- The pairwise algorithms are both actually O(mn) where m and n are the lengths of the 2 sequences. -->
-
-# Pairwise sequence alignment methods: $O(mn)$
-<!-- paginate: skip -->
-[<<Back to Suplementary](#supplementary)
-<div class="two_columns">
-  <div>
-
-- Needlemann-Wunsch algorithm: global alignment for highly similar sequences
-    - scoring system that penalises gaps and mismatches
-- Smith-Waterman algorithm: better for local alignment to find conserved domains
-    - allows for alignment to reset when the score falls to 0
-
-  </div>
-  <div>
-Compare each nucleotide in one sequence to each nucleotide in the other sequence
-
-Given a simple scoring system +1 match, -1 mismatch, -2 gap ($\delta$)
-
-Where $F(i,j) = \max \text{of the following}$
-
-$$
-\begin{array}{l} 
-⇖ F(i-1, j-1) + s(A_i, B_j), \quad \text{(match/mismatch)}\\
-⇑ F(i-1, j) + \delta, \quad \text{(deletion)}\\
-⇐F(i, j-1) + \delta, \quad \text{(insertion)}
-\end{array}
-$$
-
-|  | gap  | A | G | C | A |  A |
-|----|---|---|---|---|---|---|
-|**gap**|**_0_**|⇐-2|⇐-4|⇐-6|⇐-8|⇐-10
-| **A** |⇑-2| ⇖ **_1_** |⇐ **-1** |⇐-3 |⇐-5 |⇐⇖-7|
-| **C** |⇑-4|⇑-1 |⇖0 |⇖ **_0_** |⇐-2 |⇐-4|
-| **G** |⇑-6|⇑-3 |⇖0 |⇖-1 |⇖ **_1_** |⇐-1|
-| **A** |⇑-8|⇖⇑-5 |⇑-2 |⇖-1 | ⇑-1|⇖ **_2_**|
-| **A** |⇑-10|⇖⇑-7 |⇑-4 |⇖⇑-3 |⇖-2|⇖⇑ **_0_**|
-
-backtrace from bottom right selecting the value that _**maximizes**_ the alignment score results in the following alignment 
-
-|||||||
-|---|---|---|---|---|---|
-| sequence 1 | - | C | G | A | A |
-| sequence 2 | G | C | G | A | - |
-
-  </div>
-</div>
-
-# Multiple sequence alignment (MAS) strategies  
+# Bubbles in real data denote phylogenetic nodes
 <!-- paginate: skip -->
 [<<Back to Supplementary](#supplementary)
 
-- Pairwise alignment of each possible pair
-    - ${n\choose 2} \times O(L^2) = \frac{n(n-1)}{2} \times O(L^2) = O(n^2.L^2)$
-- Progressive alignment eg: ClustalW
-    - create a guide tree  
-    - Progressively align pairs most closely related to profiles, and then align profiles 
-- Iterative methods  eg: MUSCLE, T-Coffee, MAAFT
-    - create an preliminary fast less accurate alignment 
-    - iteratively improve alignment using some scoring function
-    - Complete when some convergence criterion is met
-- Hidden markov models $O(nL) + O(LM)$ (M is the number of states in the model)
-    - eg: HMMER
-    - create a statical model of the transition between states 
-    - Determine likely alignment based on the model
+We can show in a simple case this is true, but we need to show it is true in general
+
+![fit ](images/bubble_is_node_trivial.drawio.svg)
+
+### HYPOTHESIS: One side of a bubble is a clade
 
 # Unit tests
 <!-- paginate: skip -->
-[<<Back to Errata](#errata)
+[<<Back to Supplementary](#supplementary)
 
 library against edge case sequence alignments
       * long sequences
