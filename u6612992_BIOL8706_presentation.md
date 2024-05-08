@@ -25,10 +25,10 @@ style: |
 <br/>
 
 Build prototype
-1. **construct** a de Bruijn graph from sequences
-2. **projects** de Bruijn graph to a partial order graph
-3. **emit** fragments from the partial order graph
-4. generate statistics on work required for alignment
+1. construct **de Bruijn graph** from sequences
+2. project de Bruijn graph to a **partial order graph**
+3. emit **fragments** from the partial order graph
+4. statistics that **estimate work required** for alignment
 
 
 ![bg right fit](images/projection.drawio.svg)
@@ -42,7 +42,7 @@ Build prototype
 
 ![](images/3alignment_sequence.drawio.svg)
 
-#### We start with a set of DNA sequences to be aligned
+#### Start with a set of DNA sequences to be aligned
 
 # BACKGROUND: Sequence alignment
 
@@ -50,7 +50,7 @@ Build prototype
 
 ![](images/3alignment_alignment.drawio.svg)
 
-#### We align those sequences
+#### align those sequences
 
 # BACKGROUND: Sequence alignment
 
@@ -74,8 +74,8 @@ where the only differences are in these deletion events
 -->
 
 #### And we can infer evolutionary relationships between those sequences 
-- ingroup (1 letter different)
-- outgroup (3 letters different)
+- ingroup (1 difference)
+- outgroup (3 differences)
 
 <!--
 In this case I constructed this hypothetical example 
@@ -87,8 +87,8 @@ where the only differences are in these deletion events
 ![](images/3alignment_infer.drawio.svg)
 
 #### And we can infer evolutionary relationships between those sequences 
-- ingroup (1 letter different)
-- outgroup (3 letters different)
+- ingroup (1 difference)
+- outgroup (3 differences)
 - likely unobserved ancestor sequence
 - how long ago sequences likely diverged
 
@@ -100,6 +100,8 @@ where the only differences are in these deletion events
 
 
 ##### Sequence alignment + phylogeny is a **time machine** for homologous sequences
+
+<!-- ... that descend from common ancestors-->
 
 # 3 instructive cases of sequence alignment
 <!-- paginate: true -->
@@ -169,12 +171,12 @@ This ability to decompose history can be applied to proteins like RuBisCO, it ca
 # PROBLEM: Sequence alignment is a big job
 
 - Historically sequence alignment was done manually, like a really big evil jigsaw puzzle
-- Since 1970$_1$ it has become a computational problem
+- Since 1970$_1$ this has been a computational problem
 - The task is to compare **each** letter in **each** sequence with **all** the letters of **every** other sequence.
 
 <br> 
 
-- The terms: **each**, **all** and **every** should tell you that it will be a big job for computers too.
+- The terms: **each**, **all** and **every** should tell you that this will be a big job for computers too.
 
 <!-- _footer: "[Needleman & Wunsch, 1970  doi.org/10.1016/0022-2836(70)90057-4](https://doi.org/10.1016/0022-2836(70)90057-4)" -->
 
@@ -375,7 +377,7 @@ Progressive alignment is a method that reduces the work required
 This reduces the order of $Work(L^n)$ $\rightarrow$ $Work(i.L^2)$ 
 - Where $i$ is the number of internal nodes originally in the tree 
   - binary tree: $i=(n-1)$
-  - non-binary tree: $1 \ge i \le (n-1)$ 
+  - $Work_{progressive}(n-1.L^2)$
 
 <br/>
 
@@ -410,7 +412,7 @@ Sequence alignment is sensitive to
 An ideal strategy would reduce 
 - The **length** of sequences to be aligned
 - The **number** of sequences to be aligned
-- Dependence on knowing the phylogeny in advance
+- Requirement to know the phylogeny in advance
 
 <!-- 
 Can we reproduce the same statistical behaviour while doing less work 
@@ -436,7 +438,7 @@ Xingjian tackled the length problem using de Bruijn graphs
 
 de Bruijn graphs can be used for sequence assembly from reads  
 
-De Bruijn graphs can also be used for sequence alignment
+... but they can also be used for sequence alignment
 
 <!-- _footer: "$^1$Leng, Xingjian. ‘Sequence Alignment Using De Bruijn Graphs’. Australian National University, 2022 "-->
 
@@ -447,7 +449,7 @@ De Bruijn graphs can also be used for sequence alignment
 
 #### This “Work” scales linearly not exponentially.
 
-Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+Consider the following sequence.  We'll construct a de Bruijn graph of order 3:
 
 ![](images/debruijngraph_exploded.drawio.svg)
 
@@ -458,7 +460,7 @@ Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap b
 
 #### This “Work” scales linearly not exponentially.
 
-Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+Consider the following sequence.  We'll construct a de Bruijn graph of order 3:
 
 ![](images/debruijngraph_exploded_1.drawio.svg)
 
@@ -469,7 +471,7 @@ Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap b
 
 #### This “Work” scales linearly not exponentially.
 
-Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+Consider the following sequence.  We'll construct a de Bruijn graph of order 3:
 
 ![](images/debruijngraph_exploded_2.drawio.svg)
 
@@ -480,7 +482,7 @@ Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap b
 
 #### This “Work” scales linearly not exponentially.
 
-Consider the following sequence as a de Bruijn graph of order 3 (nodes overlap by 2 characters):
+Consider the following sequence.  We'll construct a de Bruijn graph of order 3:
 
 ![](images/debruijngraph_exploded_3.drawio.svg)
 
@@ -541,7 +543,7 @@ to $Work(1\times 1+1\times 4+4\times 5) = 24$
 ## **26x** less “work” than a progressive alignment
 
 <!-- 
-Interesting how the more sequences you add, the greater the potential advantage of using a de Bruijn graph
+It is interesting that the more sequences you add, the greater the potential advantage of using a de Bruijn graph
 -->
 
 # Taking the de Bruijn graph to the next level
@@ -619,7 +621,7 @@ Align without needing to know in advance the phylogeny
 
 # RESULT: Work statistic from partial order graphs
 
-Consider the same partial order graph 
+Consider the following partial order graph containing a bubble within a bubble
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
@@ -629,7 +631,10 @@ Consider the same partial order graph
   - DBG_L = $4\times5+5\times1$ = **25** (simplification of sequence length)
   - DBG_LN =  $0\times1+5\times1$ = **5** (simplification of sequence length and count)
 
-<!--  Note: this does not require actual alignment to be initiated.  So the work statistic can be used to rapidly quantify expected performance on a broad distribution of sequence classes -->
+<!--  
+Note: Gives the expected alignment work required, without actually aligning the sequences.  
+So the work statistic can be used to rapidly quantify expected performance on a broad distribution of sequence classes 
+-->
 
 # Summary
 
@@ -719,6 +724,7 @@ It is worth perservering with this method to see if it can be applied to evolved
 </div>
 <div>
 
+- [de Bruijn graph alignment](#de-bruijn-graph-alignment)
 - [sample data sources](#sample-data-sources)
 - [Bubbles in real data denote phylogenetic nodes](#bubbles-in-real-data-denote-phylogenetic-nodes)
 - unit tests against edge case sequence alignments
