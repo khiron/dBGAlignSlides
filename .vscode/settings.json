@@ -1,0 +1,33 @@
+{
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "markdown.marp.themes": [
+        "./huttley-style.css"
+    ],
+    "favorites.resources": [
+        {
+            "filePath": "custom-style.css",
+            "group": "presentation"
+        },
+        {
+            "filePath": "u6612992_BIOL8706_presentation.md",
+            "group": "presentation"
+        },
+        {
+            "filePath": "u6612992_BIOL8706_presentation.html",
+            "group": "presentation"
+        }
+    ],
+    "favorites.sortOrder": "DESC",
+    "favorites.groups": [
+        "Default",
+        "presentation",
+        "analysis",
+        "lib"
+    ],
+    "favorites.currentGroup": "presentation"
+
+}
