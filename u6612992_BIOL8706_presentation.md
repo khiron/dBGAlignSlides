@@ -23,13 +23,13 @@ style: |
 <!-- header: _Dividing and conquering sequence alignment using De Bruijn Graphs_ -->
 
 Explore de Bruijn graphs as a method for improving sequence alignment efficiency, while breaking the tautological conundrum at the heart of bioinformatics
-  - Build a library that allows us to 
-    - project sequences to a de Bruijn graph
-    - project a de Bruijn graph to a partial order graph 
-    - project a partial order graph to subsequences for traditional alignment methods
-  - Produce statistics for de Bruijn graphs to measure compute performance
+  - Develop a prototype that allows us to 
+    - project sets of sequences to a **de Bruijn graph**
+    - project a de Bruijn graph to a **partial order graph** 
+    - Extract from a partial order graph **fragments** for traditional alignment methods
+  - Produce statistics for a partial order graph to estimate compute performance of alignment
 
-![bg right fit height: 60%](images/projection.drawio.svg)
+![bg right height: 80%](images/projection.drawio.svg)
 
 # BACKGROUND: Sequence alignment
 
@@ -40,9 +40,11 @@ Explore de Bruijn graphs as a method for improving sequence alignment efficiency
 
 ![](images/3alignment_sequence.drawio.svg)
 
-#### We start with a set of DNA sequences (Note all different lengths)
+#### We start with a set of DNA sequences to be aligned
 
 # BACKGROUND: Sequence alignment
+
+<!--Note these sequences are all different lengths -->
 
 ![](images/3alignment_alignment.drawio.svg)
 
@@ -93,15 +95,11 @@ where the only differences are in these deletion events
 
 ![](images/3alignment_infer.drawio.svg)
 
-#### And we can infer evolutionary relationships between those sequences 
-- ingroup (1 letter different)
-- outgroup (3 letters different)
-- likely unobserved ancestor sequence
-- how long ago sequences likely diverged
 
-## Sequence alignment coupled with a phylogeny is a **time machine** for homologous proteins
 
-# 3 cases of applications of sequence alignment
+##### Sequence alignment coupled with a phylogeny is a **time machine** for homologous proteins
+
+# 3 applications for sequence alignment
 <!-- paginate: true -->
 
 - Evolution of RuBisCO
@@ -123,7 +121,7 @@ that motivates the need to find a better way to do sequence alignment
 - Which we can compare with a geological understanding of the atmosphere at that time
 <br>
 
-We can associate **features** in the protein with the **environment** in which it evolved?
+We can associate **features** appearing in the protein with the **environment** in which it evolved?
 
 <!-- _footer: "[Whitney et al 2012 doi.org/10.1104/pp.110.164814](https://doi.org/10.1104/pp.110.164814) "-->
 
@@ -135,7 +133,7 @@ We can associate **features** in the protein with the **environment** in which i
   <div>
 
 Sequence alignment 
-- allows us to identify conserved regions for vaccine/drug development
+- allows us to identify conserved regions to inform vaccine/drug development
 - can help us predict the virus's trajectory
   - where it came from
   - where it is going to
@@ -169,16 +167,18 @@ This ability to decompose history can be applied to proteins like RuBisCO, it ca
 # PROBLEM: Sequence alignment is a big job
 
 - Historically sequence alignment was done manually, like a really big evil jigsaw puzzle
-- Since 1970 it has become a computational problem
+- Since 1970$_1$ it has become a computational problem
 - The task is to compare **each** letter in **each** sequence with **all** the letters of **every** other sequence.
 
 <br> 
 
 - The terms: **each**, **all** and **every** should tell you that it will be a big job for computers too.
 
+<!-- _footer: "[Needleman & Wunsch, 1970  doi.org/10.1016/0022-2836(70)90057-4](https://doi.org/10.1016/0022-2836(70)90057-4)" -->
+
 # PROBLEM: Exhaustive sequence alignment takes time
 
-A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by the big-O notation
+A computational scientist might say that the asymptotic complexity of an exhaustive alignment is given by the following big-O notation
 
 ## $O(L_1 \times L_2 \times \dots L_\#)$ or $O(L^\#)$
 
@@ -200,7 +200,7 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 
 <hr/>
 
-| **Sequence length (L)** | number of sequences (#) | $Work$ required (comparisons)|
+| **Average length (L)** | Number of sequences (#) | $Work$ required (comparisons)|
 |---|---|---|
 | 1,000 | 3 | 1,000,000,000 |
 | 2,000 | 3 | 8,000,000,000 |
@@ -220,7 +220,7 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 
 <hr/>
 
-| Sequence length (L)| **number of sequences (#)** | $Work$ required (comparisons)|
+| Average length (L)| **Number of sequences (#)** | $Work$ required (comparisons)|
 |---|---|---|
 | 1,000 | 2 | 1,000,000 |
 | 1,000 | 3 | 1,000,000,000 |
@@ -235,9 +235,9 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 <!-- I want you to notice this is just 10 sequences -->
 
 
-# PROBLEM: The scale of the 3 cases
+# PROBLEM: The scale of our 3 cases
 
-| Sequences | Length (L) | Number (#) | $Work$ required ($L^\#$)|
+| Case | Average length (L) | Number of sequences (#) | $Work$ required ($L^\#$)|
 |---|---|---|---|
 | RuBisCO  | 2 kbp| ~350,000 | $\text{2,000}^{350,000}$|
 | SARS-CoV-2 | 29 kbp | >5,000,000$_1$ | $\text{29,000}^{5,000,000}$|
@@ -246,7 +246,7 @@ Let's rephrase this big-O notation as the order of $Work(L^\#)$
 </br>
 
 
-## Large computation problems like these take
+## Large computation problems take
 
 - ### Time 
 - ### Money
@@ -265,61 +265,130 @@ but the genomes of species that can make RuBisCO can be 1.5 mbp - 150 gbp long
 <!-- _footer: "Created with the Imgflip Meme Generator"-->
 # Progressive alignment
 
-Progressive alignment is a strategy that reduces the work required
+<div class="two_columns">
+  <div>
 
-![bg right fit](images/progressive_alignment.drawio.svg)
+Progressive alignment is a method that reduces the work required
+
+**Strategy**:
+- start with a phylogeny
+
+  </div>
+  <div>
+
+## Phylogenetic tree
+![fit](images/progressive_alignment.drawio.svg)
+
+  </div>
+</div>
+
 
 # Progressive alignment
 <!-- _paginate: hold -->
 
-Progressive alignment is a strategy that reduces the work required
+<div class="two_columns">
+  <div>
+  
+Progressive alignment is a method that reduces the work required
 
 **Strategy**:
-- align the 2 most closely related sequences into a statistical model called a profile
+- start with a phylogeny
+- align the **most closely related** sequences into a statistical model called a profile
 
-![bg right fit](images/progressive_alignment_1.drawio.svg)
+  </div>
+  <div>
+
+## Phylogenetic tree
+![fit](images/progressive_alignment_1.drawio.svg)
+
+  </div>
+</div>
+
+
 
 # Progressive alignment
 <!-- _paginate: hold -->
 
-Progressive alignment is a strategy that reduces the work required
+<div class="two_columns">
+  <div>
+  
+Progressive alignment is a method that reduces the work required
 
 **Strategy**:
-- align the 2 most closely related sequences into a statistical model called a profile
+- start with a phylogeny
+- align the most closely related sequences into a statistical model called a profile
+- align that profile with the **next** most closely related sequence 
+
+  </div>
+  <div>
+
+## Phylogenetic tree
+![fit](images/progressive_alignment_2.drawio.svg)
+
+  </div>
+</div>
+
+
+
+# Progressive alignment
+<!-- _paginate: hold -->
+
+<div class="two_columns">
+  <div>
+  
+Progressive alignment is a method that reduces the work required
+
+**Strategy**:
+- start with a phylogeny
+- align the most closely related sequences into a statistical model called a profile
 - align that profile with the next most closely related sequence 
+- Do that until you have finished aligning **all the sequences**
 
-![bg right fit](images/progressive_alignment_2.drawio.svg)
+  </div>
+  <div>
+
+## Phylogenetic tree
+![fit](images/progressive_alignment_3.drawio.svg)
+
+  </div>
+</div>
 
 # Progressive alignment
-<!-- _paginate: hold -->
 
-Progressive alignment is a strategy that reduces the work required
+<div class="two_columns">
+  <div>
+  
+Progressive alignment is a method that reduces the work required
 
 **Strategy**:
-- align the 2 most closely related sequences into a statistical model called a profile
+- start with a phylogeny
+- align the most closely related sequences into a statistical model called a profile
 - align that profile with the next most closely related sequence 
 - Do that until you have finished aligning all the sequences
-
-![bg right fit](images/progressive_alignment_3.drawio.svg)
-<!-- _paginate: hold -->
-
-# Progressive alignment
-
-Progressive alignment is a strategy that reduces the work required
-
-**Strategy**:
-- align the 2 most closely related sequences into a statistical model called a profile
-- align that profile with the next most closely related sequence 
-- Do that until you have finished aligning all the sequences to one profile
 <br/>
 
-This reduces the order of $Work(L^n)$ $\rightarrow$ $Work(v.L^2)$ where $v$ is the number of vertexes in the phylogeny and $v\isin[n-1, 2n-1]$
+  </div>
+  <div>
 
-... which is a lot less $Work$ 
+## Phylogenetic tree
+![fit](images/progressive_alignment_4.drawio.svg)
+<br/>
+This reduces the order of $Work(L^\#)$ $\rightarrow$ $Work(i.L^2)$ 
+- Where $i$ is the number of internal nodes originally in the tree 
+  - binary tree: $i=(\#-1)$
+  - non-binary tree: $1 \ge i \le (\#-1)$ 
 
-![bg right fit](images/progressive_alignment_4.drawio.svg)
+<br/>
+
+## ... That is a lot less $Work$ 
+
+  </div>
+</div>
+
+
 <!-- 
-Progressive alignment with a guide tree is used because it gives better results because insertion deletion events occur on a tree.  So the statistical performance of this approach is better than other algorithms. 
+Progressive alignment with a guide tree is used because it gives better results because insertion deletion events occur on the tree.  
+So the statistical performance of this approach is better than alternative methods. 
 -->
 
 # Progressive multiple sequence alignment (MSA) ...
@@ -360,16 +429,15 @@ Can we reproduce the same statistical behaviour while doing less work
 
 # Sequence alignment using De Bruijn Graphs
 
-My work builds upon the work by Xingjian Leng$_1$ , under the supervision of Dr. Yu Lin and Prof. Gavin Huttley. 
+My work builds upon the work by **Xingjian Leng**$_1$ , under the supervision of **Dr. Yu Lin** and **Prof. Gavin Huttley**. 
 
 Xingjian tackled the length problem using de Bruijn graphs 
 
 ![](images/debruijngraph.drawio.svg)
 
-You might have heard of de Bruijn graphs for sequence assembly from reads.  
+de Bruijn graphs can be used for sequence assembly from reads  
 
-De Bruijn graphs can also be used for sequence alignment.
-
+De Bruijn graphs can also be used for sequence alignment
 
 <!-- _footer: "$^1$Leng, Xingjian. ‘Sequence Alignment Using De Bruijn Graphs’. Australian National University, 2022 "-->
 
@@ -453,7 +521,7 @@ If we combine both sequences into a single de Bruijn graph, it will develop **�
 
 ![](images/dbg_alignment.drawio.svg)
 
-can be transformed to 
+can be transformed to the partial order graph
 
 ![](images/dbg_resolve_alignment.drawio.svg)
 
@@ -468,10 +536,10 @@ Consider aligning 4 sequences
 
   ![](images/dbg_msa.drawio.svg)
 
-We have reduced $Work(13x13x16x16)=43,264$ 
-to $Work(1x1x5x4) = 20$
+We have reduced $Work(13\times 13+13\times 16+16\times 16)=633$ for a progressive alignment
+to $Work(1\times 1+1\times 4+4\times 5) = 24$ 
 
-## **2,163x** less “work”
+## **26x** less “work” than a progressive alignment
 
 <!-- 
 Interesting how the more sequences you add, the greater the potential advantage of using a de Bruijn graph
@@ -490,20 +558,25 @@ Interesting how the more sequences you add, the greater the potential advantage 
 
 # RESULT: Reducing the **number** of sequences to be aligned
 
-Consider this partial order graph containing 4 sequences with overlaps removed
+Consider this partial order graph containing 4 sequences
 ![height:80%](images/dbg_before_braid.drawio.svg)
-
 
 # RESULT: Reducing the **number** of sequences to be aligned
 <!-- _paginate: hold -->
 
 Consider this partial order graph containing 4 sequences
+![height:80%](images/dbg_with_braid.drawio.svg)
+
+Sequences in bubbles can **braid** together
+
+# RESULT: Reducing the **number** of sequences to be aligned
+<!-- _paginate: hold -->
 ![height:80%](images/dbg_common.drawio.svg)
 
-| exhaustive alignment | reduce length | reduce length & number |
-|---|---|---|
-|$Work(13\times 14\times 17 \times17 )$ | $Work(5^4 + 3\times 2 \times 2 \times 3)$ | $Work(5^2 + 3\times 2 \times 3)$ |
-| 52,598 | 661 (**79x** less work) | 43 (**1223x** less work)|
+| exhaustive alignment | progressive alignment | reduce length | reduce number |
+|---|---|---|---|
+|$18 \times 18 \times 18 \times 14$| $(14\times 18)+2(18\times 18)$ | $3(5^2) + 3(3^2)$ | $5^2 + 2(3^2)$ |
+| 81,648 | 900 (**>90x** less work) | 102 (**>8x** less work) | 43 (**>2x** less work)|
 
 # RESULT: Reduce the dependence on the phylogeny
 
@@ -535,49 +608,37 @@ By ordering progressive alignment by descending “bubble” depth, we can progr
 
 ![](images/dbg_phylogeny_bubble_5.drawio.svg)
 
-## Alignment completed without requiring a phylogenetic guide tree
+## Alignment completed without requiring a phylogeny
 
 
 
-# RESULT: Work statistic
+# RESULT: Work statistic from partial order graphs
 
-Consider the same order 3 de Bruijn graph 
+Consider the same partial order graph 
 
 ![](images/bubble_in_a_bubble_collapsed_1.drawio.svg)
 
 - Work calculates the order of alignment work using 4 strategies
   - Exact = $13\times12\times9 = 1404$
-  - Progressive = $13\times12+13\times9 = 285$
+  - Progressive = $12\times13+13\times9 = 273$
   - DBG_L = $4\times5+5\times1 = 25$ (simplification of sequence length)
   - DBG_LN =  $0\times1+5\times1 =5$ (simplification of sequence length and count)
 
-
-# RESULT: Calculated order of Work 
+# RESULT: Calculated order of Work - TBD
 
 ## Sample Sequence sets
 
-| Genomes | Average Length (bp) | # Sequences | Description |
-|---|---|---|---|
-| BRCA1_divergent | ~3k | 7 |  |
-| BRCA1_hominae | ~3k | 4 |  |
-| SARS-CoV-2 | 30k | 22 |  |
-| IBD_phage | 40k | 60 | IBD phage components (https://doi.org/10.1016/j.cell.2015.01.002) |
-| Ocean_phage | 40k | 130 | Tara oceans phage components (https://doi.org/10.1126/science.1261605) |
-
-
-# RESULT: Calculated order of Work
-
-| Genomes | Exact | Progressive | dBG(3)_L | dBG(3)_LN | dBG(4)_LN | dBG(5)_LN | dBG(6)_LN | dBG(7)_LN |dBG(8)_LN |dBG(9)_LN |
-|---|---|---|---|---|---|---|---|---|---|---|
-| BRCA1_divergent |  |  |  |  |
-| BRCA1_hominae |  |  |  |  |
-| SARS-CoV-2 |  |  |  |  |
-| IBD_phage |  |  |  |  |
-| Ocean_phage |  |  |  |  |
+| Genomes | Avg. length (bp) | # Sequences | Exact | Progressive | dBG(3)_L | dBG(3)_LN |
+|---|---|---|---|---|---|---|
+| BRCA1_divergent | ~3k | 7 |  |  |  |
+| BRCA1_hominae | ~3k | 4 |  |  |  |
+| SARS-CoV-2 | 30k | 22 |  |  |  |
+| IBD_phage | 40k | 60 |  |  |  |
+| Ocean_phage | 40k | 130 |  |  |  |
 
 # Summary
 
-de Bruijn graphs offer an interesting method to 
+de Bruijn graphs may offer a method to 
 - Reduce the impact of both sequence length and sequence number over traditional alignment approaches 
 - Break the tautology at the heart of both Sequence alignment, and Phylogenetic reconstruction
 
@@ -585,11 +646,11 @@ de Bruijn graphs offer an interesting method to
 
 # Future directions
 
-- from first principals in sequences that have evolved in an order consistent with data from a progressive tree, show that the bubbles in the graph correspond to nodes in a tree and are similarly ordered
+- from first principals, in sequences evolved in an order consistent with data from a progressive tree, **to show that the bubbles in the graph correspond to nodes in a tree** and are similarly ordered
 - using data with known topologies and unambiguous evolution
-  - show that the algorithm has statistical performance consistent with progressive alignment
-  - show that the algorithm has superior performance wrt time and memory to progressive alignment
-- investigate sequences in species subject to lateral gene flow 
+  - show that the algorithm has **statistical performance** consistent with progressive alignment
+  - show that the algorithm has **superior performance wrt time and memory** to progressive alignment
+- investigate sequences in species subject to **lateral gene flow** which progressive alignment struggles with
 
 # Thanks
 
@@ -615,8 +676,8 @@ de Bruijn graphs offer an interesting method to
   <div>
 
 - Gavin Huttley
-- Yu Lin
 - Vijini Mallawaarachchi
+- Yu Lin
 - Xinjian Leng
 
 <br/>
